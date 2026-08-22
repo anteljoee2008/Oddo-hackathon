@@ -6,29 +6,26 @@ const loginTabs = document.querySelectorAll(".tab");
 const loginPanels = document.querySelectorAll(".login-panel");
 
 loginTabs.forEach(tab => {
-
     tab.addEventListener("click", () => {
 
         const targetPanel = tab.dataset.panel;
 
-        // Remove active from every tab
         loginTabs.forEach(item => {
             item.classList.remove("active");
         });
 
-        // Remove active from every login panel
         loginPanels.forEach(panel => {
             panel.classList.remove("active");
         });
 
-        // Activate clicked tab
         tab.classList.add("active");
 
-        // Activate matching panel
-        document.getElementById(targetPanel).classList.add("active");
+        const panel = document.getElementById(targetPanel);
 
+        if (panel) {
+            panel.classList.add("active");
+        }
     });
-
 });
 
 
@@ -44,26 +41,23 @@ passwordButtons.forEach(button => {
     button.addEventListener("click", () => {
 
         const targetId = button.dataset.target;
-
         const passwordInput =
             document.getElementById(targetId);
+
+        if (!passwordInput) return;
 
         if (passwordInput.type === "password") {
 
             passwordInput.type = "text";
-
             button.textContent = "Hide";
 
         } else {
 
             passwordInput.type = "password";
-
             button.textContent = "Show";
 
         }
-
     });
-
 });
 
 
@@ -94,60 +88,51 @@ const profileId =
 const interviewerForm =
     document.getElementById("interviewerForm");
 
-interviewerForm.addEventListener("submit", function(event) {
+if (interviewerForm) {
 
-    event.preventDefault();
+    interviewerForm.addEventListener("submit", function(event) {
 
-    const id =
-        document.getElementById("interviewerId").value.trim();
+        event.preventDefault();
 
-    const password =
-        document.getElementById("interviewerPassword").value.trim();
+        const id =
+            document.getElementById("interviewerId").value.trim();
 
-    const status =
-        document.getElementById("interviewerStatus");
+        const password =
+            document.getElementById("interviewerPassword").value.trim();
 
+        const status =
+            document.getElementById("interviewerStatus");
 
-    // Validation
+        if (id === "" || password === "") {
 
-    if (id === "" || password === "") {
+            status.textContent =
+                "Please enter both ID and password.";
+
+            status.style.color = "#C23A3A";
+
+            return;
+        }
 
         status.textContent =
-            "Please enter both ID and password.";
+            "Login successful!";
 
-        status.style.color = "#C23A3A";
+        status.style.color = "#1B8A5A";
 
-        return;
-    }
+        if (loggedInterviewerId)
+            loggedInterviewerId.textContent = id;
 
+        if (dashboardInterviewerId)
+            dashboardInterviewerId.textContent = id;
 
-    // Successful login
+        if (profileId)
+            profileId.textContent = id;
 
-    status.textContent =
-        "Login successful!";
+        loginPage.style.display = "none";
 
-    status.style.color = "#1B8A5A";
+        interviewerDashboard.classList.add("active");
 
-
-    // Put entered ID into dashboard
-
-    loggedInterviewerId.textContent = id;
-
-    dashboardInterviewerId.textContent = id;
-
-    profileId.textContent = id;
-
-
-    // Hide login
-
-    loginPage.style.display = "none";
-
-
-    // Show dashboard
-
-    interviewerDashboard.classList.add("active");
-
-});
+    });
+}
 
 
 /* =====================================================
@@ -174,56 +159,51 @@ const profileEmployeeId =
 const employeeForm =
     document.getElementById("employeeForm");
 
-employeeForm.addEventListener("submit", function(event) {
+if (employeeForm) {
 
-    event.preventDefault();
+    employeeForm.addEventListener("submit", function(event) {
 
-    const id =
-        document.getElementById("employeeId").value.trim();
+        event.preventDefault();
 
-    const password =
-        document.getElementById("employeePassword").value.trim();
+        const id =
+            document.getElementById("employeeId").value.trim();
 
-    const status =
-        document.getElementById("employeeStatus");
+        const password =
+            document.getElementById("employeePassword").value.trim();
 
+        const status =
+            document.getElementById("employeeStatus");
 
-    if (id === "" || password === "") {
+        if (id === "" || password === "") {
+
+            status.textContent =
+                "Please enter both ID and password.";
+
+            status.style.color = "#C23A3A";
+
+            return;
+        }
 
         status.textContent =
-            "Please enter both ID and password.";
+            "Login successful!";
 
-        status.style.color = "#C23A3A";
+        status.style.color = "#1B8A5A";
 
-        return;
-    }
+        if (loggedEmployeeId)
+            loggedEmployeeId.textContent = id;
 
+        if (dashboardEmployeeId)
+            dashboardEmployeeId.textContent = id;
 
-    status.textContent =
-        "Login successful!";
+        if (profileEmployeeId)
+            profileEmployeeId.textContent = id;
 
-    status.style.color = "#1B8A5A";
+        loginPage.style.display = "none";
 
+        employeeDashboard.classList.add("active");
 
-    // Put entered ID into dashboard
-
-    loggedEmployeeId.textContent = id;
-
-    dashboardEmployeeId.textContent = id;
-
-    profileEmployeeId.textContent = id;
-
-
-    // Hide login
-
-    loginPage.style.display = "none";
-
-
-    // Show dashboard
-
-    employeeDashboard.classList.add("active");
-
-});
+    });
+}
 
 
 /* =====================================================
@@ -250,60 +230,55 @@ const profileAdminId =
 const adminForm =
     document.getElementById("adminForm");
 
-adminForm.addEventListener("submit", function(event) {
+if (adminForm) {
 
-    event.preventDefault();
+    adminForm.addEventListener("submit", function(event) {
 
-    const id =
-        document.getElementById("adminId").value.trim();
+        event.preventDefault();
 
-    const password =
-        document.getElementById("adminPassword").value.trim();
+        const id =
+            document.getElementById("adminId").value.trim();
 
-    const status =
-        document.getElementById("adminStatus");
+        const password =
+            document.getElementById("adminPassword").value.trim();
 
+        const status =
+            document.getElementById("adminStatus");
 
-    if (id === "" || password === "") {
+        if (id === "" || password === "") {
+
+            status.textContent =
+                "Please enter both ID and password.";
+
+            status.style.color = "#C23A3A";
+
+            return;
+        }
 
         status.textContent =
-            "Please enter both ID and password.";
+            "Login successful!";
 
-        status.style.color = "#C23A3A";
+        status.style.color = "#1B8A5A";
 
-        return;
-    }
+        if (loggedAdminId)
+            loggedAdminId.textContent = id;
 
+        if (dashboardAdminId)
+            dashboardAdminId.textContent = id;
 
-    status.textContent =
-        "Login successful!";
+        if (profileAdminId)
+            profileAdminId.textContent = id;
 
-    status.style.color = "#1B8A5A";
+        loginPage.style.display = "none";
 
+        adminDashboard.classList.add("active");
 
-    // Put entered ID into dashboard
-
-    loggedAdminId.textContent = id;
-
-    dashboardAdminId.textContent = id;
-
-    profileAdminId.textContent = id;
-
-
-    // Hide login
-
-    loginPage.style.display = "none";
-
-
-    // Show dashboard
-
-    adminDashboard.classList.add("active");
-
-});
+    });
+}
 
 
 /* =====================================================
-   SIDEBAR MODULE NAVIGATION (INTERVIEWER)
+   SIDEBAR MODULE NAVIGATION - INTERVIEWER
 ===================================================== */
 
 const sideMenuButtons =
@@ -312,55 +287,31 @@ const sideMenuButtons =
 const contentSections =
     document.querySelectorAll("#interviewerDashboard .content-section");
 
-
 sideMenuButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        // Get selected section
-
         const sectionName =
             button.dataset.section;
 
-
-        // Remove active from ALL sidebar buttons
-
         sideMenuButtons.forEach(item => {
-
             item.classList.remove("active");
-
         });
-
-
-        // Remove active from ALL content sections
 
         contentSections.forEach(section => {
-
             section.classList.remove("active");
-
         });
 
-
-        // Activate clicked sidebar button
-
         button.classList.add("active");
-
-
-        // Activate matching content section
 
         const selectedSection =
             document.getElementById(
                 "section-" + sectionName
             );
 
-
         if (selectedSection) {
-
             selectedSection.classList.add("active");
-
         }
-
-        // Scroll content to top
 
         window.scrollTo({
             top: 0,
@@ -373,7 +324,7 @@ sideMenuButtons.forEach(button => {
 
 
 /* =====================================================
-   SIDEBAR MODULE NAVIGATION (EMPLOYEE)
+   SIDEBAR MODULE NAVIGATION - EMPLOYEE
 ===================================================== */
 
 const employeeSideMenuButtons =
@@ -382,7 +333,6 @@ const employeeSideMenuButtons =
 const employeeContentSections =
     document.querySelectorAll("#employeeDashboard .content-section");
 
-
 employeeSideMenuButtons.forEach(button => {
 
     button.addEventListener("click", () => {
@@ -390,34 +340,23 @@ employeeSideMenuButtons.forEach(button => {
         const sectionName =
             button.dataset.empSection;
 
-
         employeeSideMenuButtons.forEach(item => {
-
             item.classList.remove("active");
-
         });
-
 
         employeeContentSections.forEach(section => {
-
             section.classList.remove("active");
-
         });
 
-
         button.classList.add("active");
-
 
         const selectedSection =
             document.getElementById(
                 "emp-section-" + sectionName
             );
 
-
         if (selectedSection) {
-
             selectedSection.classList.add("active");
-
         }
 
         window.scrollTo({
@@ -431,7 +370,7 @@ employeeSideMenuButtons.forEach(button => {
 
 
 /* =====================================================
-   SIDEBAR MODULE NAVIGATION (ADMIN)
+   SIDEBAR MODULE NAVIGATION - ADMIN
 ===================================================== */
 
 const adminSideMenuButtons =
@@ -440,7 +379,6 @@ const adminSideMenuButtons =
 const adminContentSections =
     document.querySelectorAll("#adminDashboard .content-section");
 
-
 adminSideMenuButtons.forEach(button => {
 
     button.addEventListener("click", () => {
@@ -448,34 +386,23 @@ adminSideMenuButtons.forEach(button => {
         const sectionName =
             button.dataset.adminSection;
 
-
         adminSideMenuButtons.forEach(item => {
-
             item.classList.remove("active");
-
         });
-
 
         adminContentSections.forEach(section => {
-
             section.classList.remove("active");
-
         });
 
-
         button.classList.add("active");
-
 
         const selectedSection =
             document.getElementById(
                 "admin-section-" + sectionName
             );
 
-
         if (selectedSection) {
-
             selectedSection.classList.add("active");
-
         }
 
         window.scrollTo({
@@ -488,7 +415,9 @@ adminSideMenuButtons.forEach(button => {
 });
 
 
-// Jump straight to Announcements from the dashboard shortcut button
+/* =====================================================
+   EMPLOYEE ANNOUNCEMENT SHORTCUT
+===================================================== */
 
 const employeeAnnouncementButton =
     document.getElementById("employeeAnnouncementButton");
@@ -498,12 +427,12 @@ if (employeeAnnouncementButton) {
     employeeAnnouncementButton.addEventListener("click", () => {
 
         const announcementsButton =
-            document.querySelector('[data-emp-section="announcements"]');
+            document.querySelector(
+                '[data-emp-section="announcements"]'
+            );
 
         if (announcementsButton) {
-
             announcementsButton.click();
-
         }
 
     });
@@ -528,22 +457,23 @@ const adminCurrentTime =
 function formatClock(now) {
 
     let hours = now.getHours();
-
     let minutes = now.getMinutes();
-
     let seconds = now.getSeconds();
 
-    const ampm = hours >= 12 ? "PM" : "AM";
+    const ampm =
+        hours >= 12 ? "PM" : "AM";
 
     hours = hours % 12;
-
     hours = hours ? hours : 12;
 
-    hours = String(hours).padStart(2, "0");
+    hours =
+        String(hours).padStart(2, "0");
 
-    minutes = String(minutes).padStart(2, "0");
+    minutes =
+        String(minutes).padStart(2, "0");
 
-    seconds = String(seconds).padStart(2, "0");
+    seconds =
+        String(seconds).padStart(2, "0");
 
     return `${hours}:${minutes}:${seconds} ${ampm}`;
 
@@ -554,25 +484,17 @@ function updateClock() {
 
     const now = new Date();
 
-    const formatted = formatClock(now);
+    const formatted =
+        formatClock(now);
 
-    if (currentTime) {
-
+    if (currentTime)
         currentTime.textContent = formatted;
 
-    }
-
-    if (employeeCurrentTime) {
-
+    if (employeeCurrentTime)
         employeeCurrentTime.textContent = formatted;
 
-    }
-
-    if (adminCurrentTime) {
-
+    if (adminCurrentTime)
         adminCurrentTime.textContent = formatted;
-
-    }
 
 }
 
@@ -597,7 +519,6 @@ const checkInTimeLabel =
 
 let hasCheckedIn = false;
 
-
 if (checkInButton) {
 
     checkInButton.addEventListener("click", () => {
@@ -610,17 +531,37 @@ if (checkInButton) {
 
         const now = new Date();
 
-        checkInTimeLabel.textContent = formatClock(now).replace(/:\d\d( [AP]M)/, "$1");
+        if (checkInTimeLabel) {
 
-        attendanceStatusLabel.textContent = "Checked In";
+            checkInTimeLabel.textContent =
+                formatClock(now).replace(
+                    /:\d\d( [AP]M)/,
+                    "$1"
+                );
 
-        attendanceStatusLabel.classList.remove("status-orange");
+        }
 
-        attendanceStatusLabel.classList.add("status-green");
+        if (attendanceStatusLabel) {
 
-        checkInButton.textContent = "Checked In";
+            attendanceStatusLabel.textContent =
+                "Checked In";
 
-        checkInButton.classList.add("checked-in");
+            attendanceStatusLabel.classList.remove(
+                "status-orange"
+            );
+
+            attendanceStatusLabel.classList.add(
+                "status-green"
+            );
+
+        }
+
+        checkInButton.textContent =
+            "Checked In";
+
+        checkInButton.classList.add(
+            "checked-in"
+        );
 
     });
 
@@ -634,62 +575,70 @@ if (checkInButton) {
 const leaveForm =
     document.getElementById("leaveForm");
 
-leaveForm.addEventListener("submit", function(event) {
+if (leaveForm) {
 
-    event.preventDefault();
+    leaveForm.addEventListener("submit", function(event) {
 
-    const type =
-        document.getElementById("leaveType").value;
+        event.preventDefault();
 
-    const from =
-        document.getElementById("leaveFrom").value;
+        const type =
+            document.getElementById("leaveType").value;
 
-    const to =
-        document.getElementById("leaveTo").value;
+        const from =
+            document.getElementById("leaveFrom").value;
 
-    const reason =
-        document.getElementById("leaveReason").value.trim();
+        const to =
+            document.getElementById("leaveTo").value;
 
-    const status =
-        document.getElementById("leaveStatus");
+        const reason =
+            document.getElementById("leaveReason").value.trim();
 
+        const status =
+            document.getElementById("leaveStatus");
 
-    if (from === "" || to === "" || reason === "") {
+        if (from === "" || to === "" || reason === "") {
+
+            status.textContent =
+                "Please fill in the dates and a reason.";
+
+            status.style.color = "#C23A3A";
+
+            return;
+        }
 
         status.textContent =
-            "Please fill in the dates and a reason.";
+            "Leave request submitted.";
 
-        status.style.color = "#C23A3A";
+        status.style.color = "#1B8A5A";
 
-        return;
-    }
+        const historyBody =
+            document.getElementById("leaveHistoryBody");
 
+        if (historyBody) {
 
-    status.textContent =
-        "Leave request submitted.";
+            const row =
+                document.createElement("tr");
 
-    status.style.color = "#1B8A5A";
+            row.innerHTML = `
+                <td>${type}</td>
+                <td>${from}</td>
+                <td>${to}</td>
+                <td>
+                    <span class="badge progress">
+                        Pending
+                    </span>
+                </td>
+            `;
 
+            historyBody.prepend(row);
 
-    // Add the new request to the top of the history table
+        }
 
-    const historyBody =
-        document.getElementById("leaveHistoryBody");
+        leaveForm.reset();
 
-    const row = document.createElement("tr");
+    });
 
-    row.innerHTML = `
-        <td>${type}</td>
-        <td>${from}</td>
-        <td>${to}</td>
-        <td><span class="badge progress">Pending</span></td>
-    `;
-
-    historyBody.prepend(row);
-
-    leaveForm.reset();
-
-});
+}
 
 
 /* =====================================================
@@ -705,7 +654,7 @@ function setupModal(modalId, closeButtonId) {
         document.getElementById(closeButtonId);
 
     if (!modal) {
-        return modal;
+        return null;
     }
 
     if (closeButton) {
@@ -736,9 +685,7 @@ function setupModal(modalId, closeButtonId) {
 function openModal(modal) {
 
     if (modal) {
-
         modal.classList.add("active");
-
     }
 
 }
@@ -746,11 +693,16 @@ function openModal(modal) {
 
 function initialsFromName(name) {
 
-    const parts = name.trim().split(/\s+/);
+    const parts =
+        name.trim().split(/\s+/);
 
-    const first = parts[0] ? parts[0][0] : "";
+    const first =
+        parts[0] ? parts[0][0] : "";
 
-    const last = parts.length > 1 ? parts[parts.length - 1][0] : "";
+    const last =
+        parts.length > 1
+            ? parts[parts.length - 1][0]
+            : "";
 
     return (first + last).toUpperCase();
 
@@ -762,7 +714,10 @@ function initialsFromName(name) {
 ===================================================== */
 
 const interviewerEditModalEl =
-    setupModal("interviewerEditModal", "closeInterviewerEdit");
+    setupModal(
+        "interviewerEditModal",
+        "closeInterviewerEdit"
+    );
 
 const interviewerEditButton =
     document.getElementById("interviewerEditButton");
@@ -771,22 +726,44 @@ if (interviewerEditButton) {
 
     interviewerEditButton.addEventListener("click", () => {
 
-        document.getElementById("interviewerEditName").value =
-            document.getElementById("interviewerNameProfile").textContent.trim();
+        document.getElementById(
+            "interviewerEditName"
+        ).value =
+            document.getElementById(
+                "interviewerNameProfile"
+            ).textContent.trim();
 
-        document.getElementById("interviewerEditEmail").value =
-            document.getElementById("interviewerEmailField").textContent.trim();
+        document.getElementById(
+            "interviewerEditEmail"
+        ).value =
+            document.getElementById(
+                "interviewerEmailField"
+            ).textContent.trim();
 
-        document.getElementById("interviewerEditDept").value =
-            document.getElementById("interviewerDeptField").textContent.trim();
+        document.getElementById(
+            "interviewerEditDept"
+        ).value =
+            document.getElementById(
+                "interviewerDeptField"
+            ).textContent.trim();
 
-        document.getElementById("interviewerEditPhone").value =
-            document.getElementById("interviewerPhoneField").textContent.trim();
+        document.getElementById(
+            "interviewerEditPhone"
+        ).value =
+            document.getElementById(
+                "interviewerPhoneField"
+            ).textContent.trim();
 
-        document.getElementById("interviewerEditExperience").value =
-            document.getElementById("interviewerExperienceField").textContent.trim();
+        document.getElementById(
+            "interviewerEditExperience"
+        ).value =
+            document.getElementById(
+                "interviewerExperienceField"
+            ).textContent.trim();
 
-        document.getElementById("interviewerEditStatus").textContent = "";
+        document.getElementById(
+            "interviewerEditStatus"
+        ).textContent = "";
 
         openModal(interviewerEditModalEl);
 
@@ -800,74 +777,111 @@ const interviewerEditForm =
 
 if (interviewerEditForm) {
 
-    interviewerEditForm.addEventListener("submit", function(event) {
+    interviewerEditForm.addEventListener(
+        "submit",
+        function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const name =
-            document.getElementById("interviewerEditName").value.trim();
+            const name =
+                document.getElementById(
+                    "interviewerEditName"
+                ).value.trim();
 
-        const email =
-            document.getElementById("interviewerEditEmail").value.trim();
+            const email =
+                document.getElementById(
+                    "interviewerEditEmail"
+                ).value.trim();
 
-        const dept =
-            document.getElementById("interviewerEditDept").value.trim();
+            const dept =
+                document.getElementById(
+                    "interviewerEditDept"
+                ).value.trim();
 
-        const phone =
-            document.getElementById("interviewerEditPhone").value.trim();
+            const phone =
+                document.getElementById(
+                    "interviewerEditPhone"
+                ).value.trim();
 
-        const experience =
-            document.getElementById("interviewerEditExperience").value.trim();
+            const experience =
+                document.getElementById(
+                    "interviewerEditExperience"
+                ).value.trim();
 
+            if (name === "" || email === "") {
 
-        if (name === "" || email === "") {
+                const status =
+                    document.getElementById(
+                        "interviewerEditStatus"
+                    );
 
-            document.getElementById("interviewerEditStatus").textContent =
-                "Name and email are required.";
+                status.textContent =
+                    "Name and email are required.";
 
-            document.getElementById("interviewerEditStatus").style.color = "#C23A3A";
+                status.style.color =
+                    "#C23A3A";
 
-            return;
+                return;
+
+            }
+
+            const initials =
+                initialsFromName(name);
+
+            document.getElementById(
+                "interviewerNameDash"
+            ).textContent = name;
+
+            document.getElementById(
+                "interviewerEmailDash"
+            ).textContent = email;
+
+            document.getElementById(
+                "interviewerDeptDash"
+            ).textContent = dept;
+
+            document.getElementById(
+                "interviewerPhoneDash"
+            ).textContent = phone;
+
+            document.getElementById(
+                "interviewerAvatarDash"
+            ).textContent = initials;
+
+            document.getElementById(
+                "interviewerNameProfile"
+            ).textContent = name;
+
+            document.getElementById(
+                "interviewerNameField"
+            ).textContent = name;
+
+            document.getElementById(
+                "interviewerEmailField"
+            ).textContent = email;
+
+            document.getElementById(
+                "interviewerDeptField"
+            ).textContent = dept;
+
+            document.getElementById(
+                "interviewerPhoneField"
+            ).textContent = phone;
+
+            document.getElementById(
+                "interviewerExperienceField"
+            ).textContent = experience;
+
+            document.getElementById(
+                "interviewerAvatarProfile"
+            ).textContent = initials;
+
+            if (interviewerEditModalEl) {
+                interviewerEditModalEl.classList.remove("active");
+            }
 
         }
-
-
-        const initials = initialsFromName(name);
-
-
-        // Dashboard card
-
-        document.getElementById("interviewerNameDash").textContent = name;
-
-        document.getElementById("interviewerEmailDash").textContent = email;
-
-        document.getElementById("interviewerDeptDash").textContent = dept;
-
-        document.getElementById("interviewerPhoneDash").textContent = phone;
-
-        document.getElementById("interviewerAvatarDash").textContent = initials;
-
-
-        // Profile page
-
-        document.getElementById("interviewerNameProfile").textContent = name;
-
-        document.getElementById("interviewerNameField").textContent = name;
-
-        document.getElementById("interviewerEmailField").textContent = email;
-
-        document.getElementById("interviewerDeptField").textContent = dept;
-
-        document.getElementById("interviewerPhoneField").textContent = phone;
-
-        document.getElementById("interviewerExperienceField").textContent = experience;
-
-        document.getElementById("interviewerAvatarProfile").textContent = initials;
-
-
-        interviewerEditModalEl.classList.remove("active");
-
-    });
+    );
 
 }
 
@@ -877,7 +891,10 @@ if (interviewerEditForm) {
 ===================================================== */
 
 const employeeEditModalEl =
-    setupModal("employeeEditModal", "closeEmployeeEdit");
+    setupModal(
+        "employeeEditModal",
+        "closeEmployeeEdit"
+    );
 
 const employeeEditButton =
     document.getElementById("employeeEditButton");
@@ -886,22 +903,44 @@ if (employeeEditButton) {
 
     employeeEditButton.addEventListener("click", () => {
 
-        document.getElementById("employeeEditName").value =
-            document.getElementById("employeeNameProfile").textContent.trim();
+        document.getElementById(
+            "employeeEditName"
+        ).value =
+            document.getElementById(
+                "employeeNameProfile"
+            ).textContent.trim();
 
-        document.getElementById("employeeEditEmail").value =
-            document.getElementById("employeeEmailField").textContent.trim();
+        document.getElementById(
+            "employeeEditEmail"
+        ).value =
+            document.getElementById(
+                "employeeEmailField"
+            ).textContent.trim();
 
-        document.getElementById("employeeEditDept").value =
-            document.getElementById("employeeDeptField").textContent.trim();
+        document.getElementById(
+            "employeeEditDept"
+        ).value =
+            document.getElementById(
+                "employeeDeptField"
+            ).textContent.trim();
 
-        document.getElementById("employeeEditPhone").value =
-            document.getElementById("employeePhoneField").textContent.trim();
+        document.getElementById(
+            "employeeEditPhone"
+        ).value =
+            document.getElementById(
+                "employeePhoneField"
+            ).textContent.trim();
 
-        document.getElementById("employeeEditType").value =
-            document.getElementById("employeeTypeField").textContent.trim();
+        document.getElementById(
+            "employeeEditType"
+        ).value =
+            document.getElementById(
+                "employeeTypeField"
+            ).textContent.trim();
 
-        document.getElementById("employeeEditStatus").textContent = "";
+        document.getElementById(
+            "employeeEditStatus"
+        ).textContent = "";
 
         openModal(employeeEditModalEl);
 
@@ -915,74 +954,111 @@ const employeeEditForm =
 
 if (employeeEditForm) {
 
-    employeeEditForm.addEventListener("submit", function(event) {
+    employeeEditForm.addEventListener(
+        "submit",
+        function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const name =
-            document.getElementById("employeeEditName").value.trim();
+            const name =
+                document.getElementById(
+                    "employeeEditName"
+                ).value.trim();
 
-        const email =
-            document.getElementById("employeeEditEmail").value.trim();
+            const email =
+                document.getElementById(
+                    "employeeEditEmail"
+                ).value.trim();
 
-        const dept =
-            document.getElementById("employeeEditDept").value.trim();
+            const dept =
+                document.getElementById(
+                    "employeeEditDept"
+                ).value.trim();
 
-        const phone =
-            document.getElementById("employeeEditPhone").value.trim();
+            const phone =
+                document.getElementById(
+                    "employeeEditPhone"
+                ).value.trim();
 
-        const type =
-            document.getElementById("employeeEditType").value;
+            const type =
+                document.getElementById(
+                    "employeeEditType"
+                ).value;
 
+            if (name === "" || email === "") {
 
-        if (name === "" || email === "") {
+                const status =
+                    document.getElementById(
+                        "employeeEditStatus"
+                    );
 
-            document.getElementById("employeeEditStatus").textContent =
-                "Name and email are required.";
+                status.textContent =
+                    "Name and email are required.";
 
-            document.getElementById("employeeEditStatus").style.color = "#C23A3A";
+                status.style.color =
+                    "#C23A3A";
 
-            return;
+                return;
+
+            }
+
+            const initials =
+                initialsFromName(name);
+
+            document.getElementById(
+                "employeeNameDash"
+            ).textContent = name;
+
+            document.getElementById(
+                "employeeEmailDash"
+            ).textContent = email;
+
+            document.getElementById(
+                "employeeDeptDash"
+            ).textContent = dept;
+
+            document.getElementById(
+                "employeePhoneDash"
+            ).textContent = phone;
+
+            document.getElementById(
+                "employeeAvatarDash"
+            ).textContent = initials;
+
+            document.getElementById(
+                "employeeNameProfile"
+            ).textContent = name;
+
+            document.getElementById(
+                "employeeNameField"
+            ).textContent = name;
+
+            document.getElementById(
+                "employeeEmailField"
+            ).textContent = email;
+
+            document.getElementById(
+                "employeeDeptField"
+            ).textContent = dept;
+
+            document.getElementById(
+                "employeePhoneField"
+            ).textContent = phone;
+
+            document.getElementById(
+                "employeeTypeField"
+            ).textContent = type;
+
+            document.getElementById(
+                "employeeAvatarProfile"
+            ).textContent = initials;
+
+            if (employeeEditModalEl) {
+                employeeEditModalEl.classList.remove("active");
+            }
 
         }
-
-
-        const initials = initialsFromName(name);
-
-
-        // Dashboard card
-
-        document.getElementById("employeeNameDash").textContent = name;
-
-        document.getElementById("employeeEmailDash").textContent = email;
-
-        document.getElementById("employeeDeptDash").textContent = dept;
-
-        document.getElementById("employeePhoneDash").textContent = phone;
-
-        document.getElementById("employeeAvatarDash").textContent = initials;
-
-
-        // Profile page
-
-        document.getElementById("employeeNameProfile").textContent = name;
-
-        document.getElementById("employeeNameField").textContent = name;
-
-        document.getElementById("employeeEmailField").textContent = email;
-
-        document.getElementById("employeeDeptField").textContent = dept;
-
-        document.getElementById("employeePhoneField").textContent = phone;
-
-        document.getElementById("employeeTypeField").textContent = type;
-
-        document.getElementById("employeeAvatarProfile").textContent = initials;
-
-
-        employeeEditModalEl.classList.remove("active");
-
-    });
+    );
 
 }
 
@@ -992,7 +1068,10 @@ if (employeeEditForm) {
 ===================================================== */
 
 const adminEditModalEl =
-    setupModal("adminEditModal", "closeAdminEdit");
+    setupModal(
+        "adminEditModal",
+        "closeAdminEdit"
+    );
 
 const adminEditButton =
     document.getElementById("adminEditButton");
@@ -1001,22 +1080,44 @@ if (adminEditButton) {
 
     adminEditButton.addEventListener("click", () => {
 
-        document.getElementById("adminEditName").value =
-            document.getElementById("adminNameProfile").textContent.trim();
+        document.getElementById(
+            "adminEditName"
+        ).value =
+            document.getElementById(
+                "adminNameProfile"
+            ).textContent.trim();
 
-        document.getElementById("adminEditEmail").value =
-            document.getElementById("adminEmailField").textContent.trim();
+        document.getElementById(
+            "adminEditEmail"
+        ).value =
+            document.getElementById(
+                "adminEmailField"
+            ).textContent.trim();
 
-        document.getElementById("adminEditDept").value =
-            document.getElementById("adminDeptField").textContent.trim();
+        document.getElementById(
+            "adminEditDept"
+        ).value =
+            document.getElementById(
+                "adminDeptField"
+            ).textContent.trim();
 
-        document.getElementById("adminEditPhone").value =
-            document.getElementById("adminPhoneField").textContent.trim();
+        document.getElementById(
+            "adminEditPhone"
+        ).value =
+            document.getElementById(
+                "adminPhoneField"
+            ).textContent.trim();
 
-        document.getElementById("adminEditAccess").value =
-            document.getElementById("adminAccessField").textContent.trim();
+        document.getElementById(
+            "adminEditAccess"
+        ).value =
+            document.getElementById(
+                "adminAccessField"
+            ).textContent.trim();
 
-        document.getElementById("adminEditStatus").textContent = "";
+        document.getElementById(
+            "adminEditStatus"
+        ).textContent = "";
 
         openModal(adminEditModalEl);
 
@@ -1030,82 +1131,117 @@ const adminEditForm =
 
 if (adminEditForm) {
 
-    adminEditForm.addEventListener("submit", function(event) {
+    adminEditForm.addEventListener(
+        "submit",
+        function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const name =
-            document.getElementById("adminEditName").value.trim();
+            const name =
+                document.getElementById(
+                    "adminEditName"
+                ).value.trim();
 
-        const email =
-            document.getElementById("adminEditEmail").value.trim();
+            const email =
+                document.getElementById(
+                    "adminEditEmail"
+                ).value.trim();
 
-        const dept =
-            document.getElementById("adminEditDept").value.trim();
+            const dept =
+                document.getElementById(
+                    "adminEditDept"
+                ).value.trim();
 
-        const phone =
-            document.getElementById("adminEditPhone").value.trim();
+            const phone =
+                document.getElementById(
+                    "adminEditPhone"
+                ).value.trim();
 
-        const access =
-            document.getElementById("adminEditAccess").value;
+            const access =
+                document.getElementById(
+                    "adminEditAccess"
+                ).value;
 
+            if (name === "" || email === "") {
 
-        if (name === "" || email === "") {
+                const status =
+                    document.getElementById(
+                        "adminEditStatus"
+                    );
 
-            document.getElementById("adminEditStatus").textContent =
-                "Name and email are required.";
+                status.textContent =
+                    "Name and email are required.";
 
-            document.getElementById("adminEditStatus").style.color = "#C23A3A";
+                status.style.color =
+                    "#C23A3A";
 
-            return;
+                return;
+
+            }
+
+            const initials =
+                initialsFromName(name);
+
+            document.getElementById(
+                "adminNameDash"
+            ).textContent = name;
+
+            document.getElementById(
+                "adminEmailDash"
+            ).textContent = email;
+
+            document.getElementById(
+                "adminDeptDash"
+            ).textContent = dept;
+
+            document.getElementById(
+                "adminPhoneDash"
+            ).textContent = phone;
+
+            document.getElementById(
+                "adminAvatarDash"
+            ).textContent = initials;
+
+            document.getElementById(
+                "adminNameProfile"
+            ).textContent = name;
+
+            document.getElementById(
+                "adminNameField"
+            ).textContent = name;
+
+            document.getElementById(
+                "adminEmailField"
+            ).textContent = email;
+
+            document.getElementById(
+                "adminDeptField"
+            ).textContent = dept;
+
+            document.getElementById(
+                "adminPhoneField"
+            ).textContent = phone;
+
+            document.getElementById(
+                "adminAccessField"
+            ).textContent = access;
+
+            document.getElementById(
+                "adminAvatarProfile"
+            ).textContent = initials;
+
+            if (adminEditModalEl) {
+                adminEditModalEl.classList.remove("active");
+            }
 
         }
-
-
-        const initials = initialsFromName(name);
-
-
-        // Dashboard card
-
-        document.getElementById("adminNameDash").textContent = name;
-
-        document.getElementById("adminEmailDash").textContent = email;
-
-        document.getElementById("adminDeptDash").textContent = dept;
-
-        document.getElementById("adminPhoneDash").textContent = phone;
-
-        document.getElementById("adminAvatarDash").textContent = initials;
-
-
-        // Profile page
-
-        document.getElementById("adminNameProfile").textContent = name;
-
-        document.getElementById("adminNameField").textContent = name;
-
-        document.getElementById("adminEmailField").textContent = email;
-
-        document.getElementById("adminDeptField").textContent = dept;
-
-        document.getElementById("adminPhoneField").textContent = phone;
-
-        document.getElementById("adminAccessField").textContent = access;
-
-        document.getElementById("adminAvatarProfile").textContent = initials;
-
-
-        adminEditModalEl.classList.remove("active");
-
-    });
+    );
 
 }
 
 
 /* =====================================================
-   EMPLOYEE DATA STORE (ADMIN)
-   Single source of truth for the Employees tables, the
-   attendance bar chart, and the View Employee modal.
+   EMPLOYEE DATA STORE - ADMIN
 ===================================================== */
 
 const TOTAL_WORKING_DAYS = 22;
@@ -1118,7 +1254,7 @@ const employeeData = {
         role: "Senior Product Designer",
         status: "Active",
         present: 18,
-        todayStatus: null   // "Present" | "Absent" | "Leave" | null
+        todayStatus: null
     },
 
     EMP002: {
@@ -1143,9 +1279,7 @@ const employeeData = {
 
 
 /* =====================================================
-   MARK TODAY'S ATTENDANCE (ADMIN)
-   Quick Present / Absent / Leave buttons in the
-   "Mark Today's Attendance" table.
+   MARK TODAY'S ATTENDANCE - ADMIN
 ===================================================== */
 
 const attendanceMarkTableBody =
@@ -1154,14 +1288,17 @@ const attendanceMarkTableBody =
 
 function renderAttendanceBadge(id) {
 
-    const employee = employeeData[id];
+    const employee =
+        employeeData[id];
 
-    if (!employee) {
+    if (!employee || !attendanceMarkTableBody) {
         return;
     }
 
     const row =
-        attendanceMarkTableBody.querySelector(`tr[data-emp-id="${id}"]`);
+        attendanceMarkTableBody.querySelector(
+            `tr[data-emp-id="${id}"]`
+        );
 
     if (!row) {
         return;
@@ -1177,16 +1314,20 @@ function renderAttendanceBadge(id) {
 
         if (employee.todayStatus) {
 
-            badge.textContent = employee.todayStatus;
+            badge.textContent =
+                employee.todayStatus;
 
             badge.className =
-                "badge attendance-badge " + employee.todayStatus.toLowerCase();
+                "badge attendance-badge " +
+                employee.todayStatus.toLowerCase();
 
         } else {
 
-            badge.textContent = "Not Marked";
+            badge.textContent =
+                "Not Marked";
 
-            badge.className = "badge unmarked attendance-badge";
+            badge.className =
+                "badge unmarked attendance-badge";
 
         }
 
@@ -1196,7 +1337,8 @@ function renderAttendanceBadge(id) {
 
         button.classList.toggle(
             "is-active",
-            button.dataset.status === employee.todayStatus
+            button.dataset.status ===
+            employee.todayStatus
         );
 
     });
@@ -1206,32 +1348,49 @@ function renderAttendanceBadge(id) {
 
 function markAttendance(id, status) {
 
-    const employee = employeeData[id];
+    const employee =
+        employeeData[id];
 
     if (!employee) {
         return;
     }
 
-    const previousStatus = employee.todayStatus;
+    const previousStatus =
+        employee.todayStatus;
 
-    // Clicking the already-active status clears the mark
     const nextStatus =
-        previousStatus === status ? null : status;
+        previousStatus === status
+            ? null
+            : status;
 
-    // Keep the "Days Present" figure in sync with the mark
-    if (previousStatus === "Present" && nextStatus !== "Present") {
+    if (
+        previousStatus === "Present" &&
+        nextStatus !== "Present"
+    ) {
 
-        employee.present = Math.max(employee.present - 1, 0);
+        employee.present =
+            Math.max(
+                employee.present - 1,
+                0
+            );
 
     }
 
-    if (nextStatus === "Present" && previousStatus !== "Present") {
+    if (
+        nextStatus === "Present" &&
+        previousStatus !== "Present"
+    ) {
 
-        employee.present = Math.min(employee.present + 1, TOTAL_WORKING_DAYS);
+        employee.present =
+            Math.min(
+                employee.present + 1,
+                TOTAL_WORKING_DAYS
+            );
 
     }
 
-    employee.todayStatus = nextStatus;
+    employee.todayStatus =
+        nextStatus;
 
     renderAttendanceBadge(id);
 
@@ -1240,143 +1399,216 @@ function markAttendance(id, status) {
 
 if (attendanceMarkTableBody) {
 
-    attendanceMarkTableBody.addEventListener("click", event => {
+    attendanceMarkTableBody.addEventListener(
+        "click",
+        event => {
 
-        const button =
-            event.target.closest(".attendance-btn");
+            const button =
+                event.target.closest(
+                    ".attendance-btn"
+                );
 
-        if (!button) {
-            return;
+            if (!button) {
+                return;
+            }
+
+            const row =
+                button.closest(
+                    "tr[data-emp-id]"
+                );
+
+            if (!row) {
+                return;
+            }
+
+            const id =
+                row.dataset.empId;
+
+            markAttendance(
+                id,
+                button.dataset.status
+            );
+
         }
-
-        const row =
-            button.closest("tr[data-emp-id]");
-
-        if (!row) {
-            return;
-        }
-
-        const id = row.dataset.empId;
-
-        markAttendance(id, button.dataset.status);
-
-    });
+    );
 
 }
 
 
 /* =====================================================
-   VIEW EMPLOYEE MODAL (ADMIN)
+   VIEW EMPLOYEE MODAL - ADMIN
 ===================================================== */
 
 let viewEmployeeChart = null;
 
 const viewEmployeeModalEl =
-    setupModal("viewEmployeeModal", "closeViewEmployee");
+    setupModal(
+        "viewEmployeeModal",
+        "closeViewEmployee"
+    );
 
 const employeesListTableBody =
-    document.getElementById("employeesListTableBody");
+    document.getElementById(
+        "employeesListTableBody"
+    );
 
 
 function openViewEmployeeModal(id) {
 
-    const employee = employeeData[id];
+    const employee =
+        employeeData[id];
 
     if (!employee) {
         return;
     }
 
-    const present = employee.present;
+    const present =
+        employee.present;
 
-    const absent = Math.max(TOTAL_WORKING_DAYS - present, 0);
+    const absent =
+        Math.max(
+            TOTAL_WORKING_DAYS - present,
+            0
+        );
 
-    const initials = initialsFromName(employee.name);
+    const initials =
+        initialsFromName(employee.name);
 
+    const avatar =
+        document.getElementById(
+            "viewEmployeeAvatar"
+        );
 
-    document.getElementById("viewEmployeeAvatar").textContent = initials;
+    if (avatar)
+        avatar.textContent = initials;
 
-    document.getElementById("viewEmployeeName").textContent = employee.name;
+    const name =
+        document.getElementById(
+            "viewEmployeeName"
+        );
 
-    document.getElementById("viewEmployeeRole").textContent = employee.role;
+    if (name)
+        name.textContent = employee.name;
 
-    document.getElementById("viewEmployeeId").textContent = id;
+    const role =
+        document.getElementById(
+            "viewEmployeeRole"
+        );
 
-    document.getElementById("viewEmployeeDept").textContent = employee.dept;
+    if (role)
+        role.textContent = employee.role;
 
-    document.getElementById("viewEmployeeStatus").textContent = employee.status;
+    const idElement =
+        document.getElementById(
+            "viewEmployeeId"
+        );
 
-    document.getElementById("viewEmployeePresent").textContent =
-        `${present} / ${TOTAL_WORKING_DAYS}`;
+    if (idElement)
+        idElement.textContent = id;
 
-    document.getElementById("viewEmployeeToday").textContent =
-        employee.todayStatus || "Not Marked";
+    const dept =
+        document.getElementById(
+            "viewEmployeeDept"
+        );
 
+    if (dept)
+        dept.textContent = employee.dept;
+
+    const status =
+        document.getElementById(
+            "viewEmployeeStatus"
+        );
+
+    if (status)
+        status.textContent = employee.status;
+
+    const presentElement =
+        document.getElementById(
+            "viewEmployeePresent"
+        );
+
+    if (presentElement)
+        presentElement.textContent =
+            `${present} / ${TOTAL_WORKING_DAYS}`;
+
+    const todayElement =
+        document.getElementById(
+            "viewEmployeeToday"
+        );
+
+    if (todayElement)
+        todayElement.textContent =
+            employee.todayStatus ||
+            "Not Marked";
 
     const chartCanvas =
-        document.getElementById("viewEmployeeChart");
+        document.getElementById(
+            "viewEmployeeChart"
+        );
 
-    if (chartCanvas && typeof Chart !== "undefined") {
+    if (
+        chartCanvas &&
+        typeof Chart !== "undefined"
+    ) {
 
         if (viewEmployeeChart) {
-
             viewEmployeeChart.destroy();
-
         }
 
-        viewEmployeeChart = new Chart(chartCanvas, {
+        viewEmployeeChart =
+            new Chart(
+                chartCanvas,
+                {
+                    type: "doughnut",
 
-            type: "doughnut",
+                    data: {
+                        labels: [
+                            "Present",
+                            "Absent"
+                        ],
 
-            data: {
+                        datasets: [{
+                            data: [
+                                present,
+                                absent
+                            ],
 
-                labels: ["Present", "Absent"],
+                            backgroundColor: [
+                                "#1B8A5A",
+                                "#C23A3A"
+                            ],
 
-                datasets: [{
+                            borderWidth: 0
+                        }]
+                    },
 
-                    data: [present, absent],
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
 
-                    backgroundColor: ["#1B8A5A", "#C23A3A"],
+                        plugins: {
+                            legend: {
+                                position: "bottom",
 
-                    borderWidth: 0
+                                labels: {
+                                    color: "#767A85",
 
-                }]
+                                    font: {
+                                        family:
+                                            "IBM Plex Sans",
+                                        size: 12
+                                    },
 
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-                plugins: {
-
-                    legend: {
-
-                        position: "bottom",
-
-                        labels: {
-
-                            color: "#767A85",
-
-                            font: { family: "IBM Plex Sans", size: 12 },
-
-                            boxWidth: 12,
-
-                            padding: 16
-
+                                    boxWidth: 12,
+                                    padding: 16
+                                }
+                            }
                         }
-
                     }
-
                 }
-
-            }
-
-        });
+            );
 
     }
-
 
     openModal(viewEmployeeModalEl);
 
@@ -1385,28 +1617,36 @@ function openViewEmployeeModal(id) {
 
 if (employeesListTableBody) {
 
-    employeesListTableBody.addEventListener("click", event => {
+    employeesListTableBody.addEventListener(
+        "click",
+        event => {
 
-        const button =
-            event.target.closest(".view-button");
+            const button =
+                event.target.closest(
+                    ".view-button"
+                );
 
-        if (!button) {
-            return;
+            if (!button) {
+                return;
+            }
+
+            const row =
+                button.closest("tr");
+
+            if (!row) {
+                return;
+            }
+
+            const id =
+                row.dataset.empId ||
+                row.children[0]
+                    .textContent
+                    .trim();
+
+            openViewEmployeeModal(id);
+
         }
-
-        const row =
-            button.closest("tr");
-
-        if (!row) {
-            return;
-        }
-
-        const id =
-            row.dataset.empId || row.children[0].textContent.trim();
-
-        openViewEmployeeModal(id);
-
-    });
+    );
 
 }
 
@@ -1416,138 +1656,219 @@ if (employeesListTableBody) {
 ===================================================== */
 
 const addEmployeeModalEl =
-    setupModal("addEmployeeModal", "closeAddEmployee");
+    setupModal(
+        "addEmployeeModal",
+        "closeAddEmployee"
+    );
 
 const addEmployeeButton =
-    document.getElementById("addEmployeeButton");
+    document.getElementById(
+        "addEmployeeButton"
+    );
 
 if (addEmployeeButton) {
 
-    addEmployeeButton.addEventListener("click", () => {
+    addEmployeeButton.addEventListener(
+        "click",
+        () => {
 
-        document.getElementById("addEmployeeStatus").textContent = "";
+            const status =
+                document.getElementById(
+                    "addEmployeeStatus"
+                );
 
-        openModal(addEmployeeModalEl);
+            if (status)
+                status.textContent = "";
 
-    });
+            openModal(addEmployeeModalEl);
+
+        }
+    );
 
 }
 
 
 const addEmployeeForm =
-    document.getElementById("addEmployeeForm");
+    document.getElementById(
+        "addEmployeeForm"
+    );
 
 if (addEmployeeForm) {
 
-    addEmployeeForm.addEventListener("submit", function(event) {
+    addEmployeeForm.addEventListener(
+        "submit",
+        function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const id =
-            document.getElementById("newEmployeeId").value.trim();
+            const id =
+                document.getElementById(
+                    "newEmployeeId"
+                ).value.trim();
 
-        const name =
-            document.getElementById("newEmployeeName").value.trim();
+            const name =
+                document.getElementById(
+                    "newEmployeeName"
+                ).value.trim();
 
-        const dept =
-            document.getElementById("newEmployeeDept").value.trim();
+            const dept =
+                document.getElementById(
+                    "newEmployeeDept"
+                ).value.trim();
 
-        const role =
-            document.getElementById("newEmployeeRole").value.trim();
+            const role =
+                document.getElementById(
+                    "newEmployeeRole"
+                ).value.trim();
 
-        const status =
-            document.getElementById("newEmployeeStatus").value;
+            const status =
+                document.getElementById(
+                    "newEmployeeStatus"
+                ).value;
 
-        const statusLabel =
-            document.getElementById("addEmployeeStatus");
+            const statusLabel =
+                document.getElementById(
+                    "addEmployeeStatus"
+                );
 
+            if (
+                id === "" ||
+                name === "" ||
+                dept === "" ||
+                role === ""
+            ) {
 
-        if (id === "" || name === "" || dept === "" || role === "") {
+                statusLabel.textContent =
+                    "Please fill in every field.";
 
-            statusLabel.textContent =
-                "Please fill in every field.";
+                statusLabel.style.color =
+                    "#C23A3A";
 
-            statusLabel.style.color = "#C23A3A";
+                return;
+            }
 
-            return;
+            if (employeeData[id]) {
+
+                statusLabel.textContent =
+                    "That Employee ID already exists.";
+
+                statusLabel.style.color =
+                    "#C23A3A";
+
+                return;
+            }
+
+            employeeData[id] = {
+
+                name,
+                dept,
+                role,
+                status,
+
+                present: 0,
+
+                todayStatus: null
+
+            };
+
+            const badgeClass =
+                status === "Active"
+                    ? "upcoming"
+                    : "progress";
+
+            if (employeesListTableBody) {
+
+                const listRow =
+                    document.createElement("tr");
+
+                listRow.dataset.empId =
+                    id;
+
+                listRow.innerHTML = `
+                    <td>${id}</td>
+                    <td>${name}</td>
+                    <td>${dept}</td>
+                    <td>${role}</td>
+                    <td>
+                        <span class="badge ${badgeClass}">
+                            ${status}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="view-button">
+                            View
+                        </button>
+                    </td>
+                `;
+
+                employeesListTableBody.appendChild(
+                    listRow
+                );
+
+            }
+
+            if (attendanceMarkTableBody) {
+
+                const markRow =
+                    document.createElement("tr");
+
+                markRow.dataset.empId =
+                    id;
+
+                markRow.innerHTML = `
+                    <td>${id}</td>
+                    <td>${name}</td>
+                    <td>${dept}</td>
+                    <td>${role}</td>
+                    <td>
+                        <span class="badge unmarked attendance-badge">
+                            Not Marked
+                        </span>
+                    </td>
+                    <td>
+                        <div class="attendance-actions">
+
+                            <button
+                                class="attendance-btn present"
+                                data-status="Present"
+                                title="Mark Present">
+                                P
+                            </button>
+
+                            <button
+                                class="attendance-btn absent"
+                                data-status="Absent"
+                                title="Mark Absent">
+                                A
+                            </button>
+
+                            <button
+                                class="attendance-btn leave"
+                                data-status="Leave"
+                                title="Mark Leave">
+                                L
+                            </button>
+
+                        </div>
+                    </td>
+                `;
+
+                attendanceMarkTableBody.appendChild(
+                    markRow
+                );
+
+            }
+
+            addEmployeeForm.reset();
+
+            if (addEmployeeModalEl) {
+                addEmployeeModalEl.classList.remove(
+                    "active"
+                );
+            }
 
         }
-
-        if (employeeData[id]) {
-
-            statusLabel.textContent =
-                "That Employee ID already exists.";
-
-            statusLabel.style.color = "#C23A3A";
-
-            return;
-
-        }
-
-
-        // Register the new employee so both tables, the
-        // chart, and the View modal all know about them
-
-        employeeData[id] = {
-            name,
-            dept,
-            role,
-            status,
-            present: 0,
-            todayStatus: null
-        };
-
-
-        const badgeClass =
-            status === "Active" ? "upcoming" : "progress";
-
-        // Row for the "All Employees" list table
-
-        const listRow = document.createElement("tr");
-
-        listRow.dataset.empId = id;
-
-        listRow.innerHTML = `
-            <td>${id}</td>
-            <td>${name}</td>
-            <td>${dept}</td>
-            <td>${role}</td>
-            <td><span class="badge ${badgeClass}">${status}</span></td>
-            <td><button class="view-button">View</button></td>
-        `;
-
-        employeesListTableBody.appendChild(listRow);
-
-
-        // Row for the "Mark Today's Attendance" table
-
-        const markRow = document.createElement("tr");
-
-        markRow.dataset.empId = id;
-
-        markRow.innerHTML = `
-            <td>${id}</td>
-            <td>${name}</td>
-            <td>${dept}</td>
-            <td>${role}</td>
-            <td><span class="badge unmarked attendance-badge">Not Marked</span></td>
-            <td>
-                <div class="attendance-actions">
-                    <button class="attendance-btn present" data-status="Present" title="Mark Present">P</button>
-                    <button class="attendance-btn absent" data-status="Absent" title="Mark Absent">A</button>
-                    <button class="attendance-btn leave" data-status="Leave" title="Mark Leave">L</button>
-                </div>
-            </td>
-        `;
-
-        attendanceMarkTableBody.appendChild(markRow);
-
-
-        addEmployeeForm.reset();
-
-        addEmployeeModalEl.classList.remove("active");
-
-    });
+    );
 
 }
 
@@ -1557,85 +1878,136 @@ if (addEmployeeForm) {
 ===================================================== */
 
 const addInterviewerModalEl =
-    setupModal("addInterviewerModal", "closeAddInterviewer");
+    setupModal(
+        "addInterviewerModal",
+        "closeAddInterviewer"
+    );
 
 const addInterviewerButton =
-    document.getElementById("addInterviewerButton");
+    document.getElementById(
+        "addInterviewerButton"
+    );
 
 if (addInterviewerButton) {
 
-    addInterviewerButton.addEventListener("click", () => {
+    addInterviewerButton.addEventListener(
+        "click",
+        () => {
 
-        document.getElementById("addInterviewerStatus").textContent = "";
+            const status =
+                document.getElementById(
+                    "addInterviewerStatus"
+                );
 
-        openModal(addInterviewerModalEl);
+            if (status)
+                status.textContent = "";
 
-    });
+            openModal(
+                addInterviewerModalEl
+            );
+
+        }
+    );
 
 }
 
 
 const addInterviewerForm =
-    document.getElementById("addInterviewerForm");
+    document.getElementById(
+        "addInterviewerForm"
+    );
 
 if (addInterviewerForm) {
 
-    addInterviewerForm.addEventListener("submit", function(event) {
+    addInterviewerForm.addEventListener(
+        "submit",
+        function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const id =
-            document.getElementById("newInterviewerId").value.trim();
+            const id =
+                document.getElementById(
+                    "newInterviewerId"
+                ).value.trim();
 
-        const name =
-            document.getElementById("newInterviewerName").value.trim();
+            const name =
+                document.getElementById(
+                    "newInterviewerName"
+                ).value.trim();
 
-        const dept =
-            document.getElementById("newInterviewerDept").value.trim();
+            const dept =
+                document.getElementById(
+                    "newInterviewerDept"
+                ).value.trim();
 
-        const status =
-            document.getElementById("newInterviewerStatus").value;
+            const status =
+                document.getElementById(
+                    "newInterviewerStatus"
+                ).value;
 
-        const statusLabel =
-            document.getElementById("addInterviewerStatus");
+            const statusLabel =
+                document.getElementById(
+                    "addInterviewerStatus"
+                );
 
+            if (
+                id === "" ||
+                name === "" ||
+                dept === ""
+            ) {
 
-        if (id === "" || name === "" || dept === "") {
+                statusLabel.textContent =
+                    "Please fill in every field.";
 
-            statusLabel.textContent =
-                "Please fill in every field.";
+                statusLabel.style.color =
+                    "#C23A3A";
 
-            statusLabel.style.color = "#C23A3A";
+                return;
+            }
 
-            return;
+            const badgeClass =
+                status === "Active"
+                    ? "upcoming"
+                    : "progress";
+
+            const interviewersTableBody =
+                document.getElementById(
+                    "interviewersTableBody"
+                );
+
+            if (interviewersTableBody) {
+
+                const row =
+                    document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${id}</td>
+                    <td>${name}</td>
+                    <td>${dept}</td>
+                    <td>0</td>
+                    <td>
+                        <span class="badge ${badgeClass}">
+                            ${status}
+                        </span>
+                    </td>
+                `;
+
+                interviewersTableBody.appendChild(
+                    row
+                );
+
+            }
+
+            addInterviewerForm.reset();
+
+            if (addInterviewerModalEl) {
+                addInterviewerModalEl.classList.remove(
+                    "active"
+                );
+            }
 
         }
-
-
-        const badgeClass =
-            status === "Active" ? "upcoming" : "progress";
-
-        const interviewersTableBody =
-            document.getElementById("interviewersTableBody");
-
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td>${id}</td>
-            <td>${name}</td>
-            <td>${dept}</td>
-            <td>0</td>
-            <td><span class="badge ${badgeClass}">${status}</span></td>
-        `;
-
-        interviewersTableBody.appendChild(row);
-
-
-        addInterviewerForm.reset();
-
-        addInterviewerModalEl.classList.remove("active");
-
-    });
+    );
 
 }
 
@@ -1645,23 +2017,35 @@ if (addInterviewerForm) {
 ===================================================== */
 
 const adminSettingsForm =
-    document.getElementById("adminSettingsForm");
+    document.getElementById(
+        "adminSettingsForm"
+    );
 
 if (adminSettingsForm) {
 
-    adminSettingsForm.addEventListener("submit", function(event) {
+    adminSettingsForm.addEventListener(
+        "submit",
+        function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const status =
-            document.getElementById("adminSettingsStatus");
+            const status =
+                document.getElementById(
+                    "adminSettingsStatus"
+                );
 
-        status.textContent =
-            "Settings saved.";
+            if (status) {
 
-        status.style.color = "#1B8A5A";
+                status.textContent =
+                    "Settings saved.";
 
-    });
+                status.style.color =
+                    "#1B8A5A";
+
+            }
+
+        }
+    );
 
 }
 
@@ -1671,216 +2055,626 @@ if (adminSettingsForm) {
 ===================================================== */
 
 const guideButton =
-    document.getElementById("guideButton");
+    document.getElementById(
+        "guideButton"
+    );
 
 const guideModal =
-    document.getElementById("guideModal");
+    document.getElementById(
+        "guideModal"
+    );
 
 const closeGuide =
-    document.getElementById("closeGuide");
+    document.getElementById(
+        "closeGuide"
+    );
 
+if (guideButton && guideModal) {
 
-guideButton.addEventListener("click", () => {
+    guideButton.addEventListener(
+        "click",
+        () => {
 
-    guideModal.classList.add("active");
+            guideModal.classList.add(
+                "active"
+            );
 
-});
+        }
+    );
 
+}
 
-closeGuide.addEventListener("click", () => {
+if (closeGuide && guideModal) {
 
-    guideModal.classList.remove("active");
+    closeGuide.addEventListener(
+        "click",
+        () => {
 
-});
+            guideModal.classList.remove(
+                "active"
+            );
 
+        }
+    );
 
-/* Close modal when clicking outside */
+}
 
-guideModal.addEventListener("click", event => {
+if (guideModal) {
 
-    if (event.target === guideModal) {
+    guideModal.addEventListener(
+        "click",
+        event => {
 
-        guideModal.classList.remove("active");
+            if (event.target === guideModal) {
 
-    }
+                guideModal.classList.remove(
+                    "active"
+                );
 
-});
+            }
+
+        }
+    );
+
+}
 
 
 /* =====================================================
-   LOGOUT (INTERVIEWER)
+   LOGOUT - INTERVIEWER
 ===================================================== */
 
 const logoutButton =
-    document.getElementById("logoutButton");
+    document.getElementById(
+        "logoutButton"
+    );
 
+if (logoutButton) {
 
-logoutButton.addEventListener("click", () => {
+    logoutButton.addEventListener(
+        "click",
+        () => {
 
-    // Hide dashboard
+            interviewerDashboard.classList.remove(
+                "active"
+            );
 
-    interviewerDashboard.classList.remove("active");
+            loginPage.style.display =
+                "flex";
 
+            document.getElementById(
+                "interviewerId"
+            ).value = "";
 
-    // Show login page
+            document.getElementById(
+                "interviewerPassword"
+            ).value = "";
 
-    loginPage.style.display = "flex";
+            sideMenuButtons.forEach(
+                button => {
+                    button.classList.remove(
+                        "active"
+                    );
+                }
+            );
 
+            contentSections.forEach(
+                section => {
+                    section.classList.remove(
+                        "active"
+                    );
+                }
+            );
 
-    // Clear login fields
+            const dashboardButton =
+                document.querySelector(
+                    '#interviewerDashboard [data-section="dashboard"]'
+                );
 
-    document.getElementById("interviewerId").value = "";
+            const dashboardSection =
+                document.getElementById(
+                    "section-dashboard"
+                );
 
-    document.getElementById("interviewerPassword").value = "";
+            if (dashboardButton)
+                dashboardButton.classList.add(
+                    "active"
+                );
 
+            if (dashboardSection)
+                dashboardSection.classList.add(
+                    "active"
+                );
 
-    // Reset sidebar to Dashboard
+        }
+    );
 
-    sideMenuButtons.forEach(button => {
-
-        button.classList.remove("active");
-
-    });
-
-    contentSections.forEach(section => {
-
-        section.classList.remove("active");
-
-    });
-
-
-    document
-        .querySelector('#interviewerDashboard [data-section="dashboard"]')
-        .classList.add("active");
-
-
-    document
-        .getElementById("section-dashboard")
-        .classList.add("active");
-
-});
+}
 
 
 /* =====================================================
-   LOGOUT (EMPLOYEE)
+   LOGOUT - EMPLOYEE
 ===================================================== */
 
 const employeeLogoutButton =
-    document.getElementById("employeeLogoutButton");
+    document.getElementById(
+        "employeeLogoutButton"
+    );
 
+if (employeeLogoutButton) {
 
-employeeLogoutButton.addEventListener("click", () => {
+    employeeLogoutButton.addEventListener(
+        "click",
+        () => {
 
-    // Hide dashboard
+            employeeDashboard.classList.remove(
+                "active"
+            );
 
-    employeeDashboard.classList.remove("active");
+            loginPage.style.display =
+                "flex";
 
+            document.getElementById(
+                "employeeId"
+            ).value = "";
 
-    // Show login page
+            document.getElementById(
+                "employeePassword"
+            ).value = "";
 
-    loginPage.style.display = "flex";
+            employeeSideMenuButtons.forEach(
+                button => {
+                    button.classList.remove(
+                        "active"
+                    );
+                }
+            );
 
+            employeeContentSections.forEach(
+                section => {
+                    section.classList.remove(
+                        "active"
+                    );
+                }
+            );
 
-    // Clear login fields
+            const dashboardButton =
+                document.querySelector(
+                    '#employeeDashboard [data-emp-section="dashboard"]'
+                );
 
-    document.getElementById("employeeId").value = "";
+            const dashboardSection =
+                document.getElementById(
+                    "emp-section-dashboard"
+                );
 
-    document.getElementById("employeePassword").value = "";
+            if (dashboardButton)
+                dashboardButton.classList.add(
+                    "active"
+                );
 
+            if (dashboardSection)
+                dashboardSection.classList.add(
+                    "active"
+                );
 
-    // Reset sidebar to Dashboard
+            hasCheckedIn = false;
 
-    employeeSideMenuButtons.forEach(button => {
+            if (checkInTimeLabel)
+                checkInTimeLabel.textContent =
+                    "--:--";
 
-        button.classList.remove("active");
+            if (attendanceStatusLabel) {
 
-    });
+                attendanceStatusLabel.textContent =
+                    "Not Checked In";
 
-    employeeContentSections.forEach(section => {
+                attendanceStatusLabel.classList.remove(
+                    "status-green"
+                );
 
-        section.classList.remove("active");
+                attendanceStatusLabel.classList.add(
+                    "status-orange"
+                );
 
-    });
+            }
 
+            if (checkInButton) {
 
-    document
-        .querySelector('#employeeDashboard [data-emp-section="dashboard"]')
-        .classList.add("active");
+                checkInButton.textContent =
+                    "Check In";
 
+                checkInButton.classList.remove(
+                    "checked-in"
+                );
 
-    document
-        .getElementById("emp-section-dashboard")
-        .classList.add("active");
+            }
 
+        }
+    );
 
-    // Reset check-in state
-
-    hasCheckedIn = false;
-
-    checkInTimeLabel.textContent = "--:--";
-
-    attendanceStatusLabel.textContent = "Not Checked In";
-
-    attendanceStatusLabel.classList.remove("status-green");
-
-    attendanceStatusLabel.classList.add("status-orange");
-
-    checkInButton.textContent = "Check In";
-
-    checkInButton.classList.remove("checked-in");
-
-});
+}
 
 
 /* =====================================================
-   LOGOUT (ADMIN)
+   LOGOUT - ADMIN
 ===================================================== */
 
 const adminLogoutButton =
-    document.getElementById("adminLogoutButton");
+    document.getElementById(
+        "adminLogoutButton"
+    );
+
+if (adminLogoutButton) {
+
+    adminLogoutButton.addEventListener(
+        "click",
+        () => {
+
+            adminDashboard.classList.remove(
+                "active"
+            );
+
+            loginPage.style.display =
+                "flex";
+
+            document.getElementById(
+                "adminId"
+            ).value = "";
+
+            document.getElementById(
+                "adminPassword"
+            ).value = "";
+
+            adminSideMenuButtons.forEach(
+                button => {
+                    button.classList.remove(
+                        "active"
+                    );
+                }
+            );
+
+            adminContentSections.forEach(
+                section => {
+                    section.classList.remove(
+                        "active"
+                    );
+                }
+            );
+
+            const dashboardButton =
+                document.querySelector(
+                    '#adminDashboard [data-admin-section="dashboard"]'
+                );
+
+            const dashboardSection =
+                document.getElementById(
+                    "admin-section-dashboard"
+                );
+
+            if (dashboardButton)
+                dashboardButton.classList.add(
+                    "active"
+                );
+
+            if (dashboardSection)
+                dashboardSection.classList.add(
+                    "active"
+                );
+
+        }
+    );
+
+}
 
 
-adminLogoutButton.addEventListener("click", () => {
+/* =====================================================
+   FASTAPI BACKEND CONNECTION
+===================================================== */
 
-    // Hide dashboard
-
-    adminDashboard.classList.remove("active");
-
-
-    // Show login page
-
-    loginPage.style.display = "flex";
+const API_URL =
+    "http://127.0.0.1:8000";
 
 
-    // Clear login fields
+/* =====================================================
+   TEST BACKEND CONNECTION
+===================================================== */
 
-    document.getElementById("adminId").value = "";
+async function testBackendConnection() {
 
-    document.getElementById("adminPassword").value = "";
+    try {
+
+        const response =
+            await fetch(`${API_URL}/`);
+
+        if (!response.ok) {
+            throw new Error(
+                "Backend returned an error"
+            );
+        }
+
+        const data =
+            await response.json();
+
+        console.log(
+            "FASTAPI CONNECTED:",
+            data
+        );
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "FASTAPI CONNECTION FAILED:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
 
 
-    // Reset sidebar to Dashboard
+/* =====================================================
+   LOAD DASHBOARD FROM FASTAPI
+===================================================== */
 
-    adminSideMenuButtons.forEach(button => {
+async function loadDashboardData() {
 
-        button.classList.remove("active");
+    try {
 
-    });
+        const response =
+            await fetch(
+                `${API_URL}/dashboard`
+            );
 
-    adminContentSections.forEach(section => {
+        if (!response.ok) {
+            throw new Error(
+                "Dashboard API failed"
+            );
+        }
 
-        section.classList.remove("active");
+        const data =
+            await response.json();
 
-    });
+        console.log(
+            "Dashboard data from MySQL:",
+            data
+        );
+
+        return data;
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard API error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
 
 
-    document
-        .querySelector('#adminDashboard [data-admin-section="dashboard"]')
-        .classList.add("active");
+/* =====================================================
+   LOAD EMPLOYEES FROM FASTAPI
+===================================================== */
+
+async function loadEmployeesFromBackend() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/employees`
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Employees API failed"
+            );
+        }
+
+        const employees =
+            await response.json();
+
+        console.log(
+            "Employees from MySQL:",
+            employees
+        );
+
+        return employees;
+
+    } catch (error) {
+
+        console.error(
+            "Employee API error:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
 
 
-    document
-        .getElementById("admin-section-dashboard")
-        .classList.add("active");
+/* =====================================================
+   LOAD ATTENDANCE FROM FASTAPI
+===================================================== */
 
-});
+async function loadAttendanceFromBackend() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/attendance`
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Attendance API failed"
+            );
+        }
+
+        const attendance =
+            await response.json();
+
+        console.log(
+            "Attendance from MySQL:",
+            attendance
+        );
+
+        return attendance;
+
+    } catch (error) {
+
+        console.error(
+            "Attendance API error:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD LEAVES FROM FASTAPI
+===================================================== */
+
+async function loadLeavesFromBackend() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/leaves`
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Leaves API failed"
+            );
+        }
+
+        const leaves =
+            await response.json();
+
+        console.log(
+            "Leaves from MySQL:",
+            leaves
+        );
+
+        return leaves;
+
+    } catch (error) {
+
+        console.error(
+            "Leaves API error:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD PAYROLL FROM FASTAPI
+===================================================== */
+
+async function loadPayrollFromBackend() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/payroll`
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Payroll API failed"
+            );
+        }
+
+        const payroll =
+            await response.json();
+
+        console.log(
+            "Payroll from MySQL:",
+            payroll
+        );
+
+        return payroll;
+
+    } catch (error) {
+
+        console.error(
+            "Payroll API error:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =====================================================
+   INITIAL BACKEND LOAD
+===================================================== */
+
+async function initializeBackend() {
+
+    console.log(
+        "Connecting to HRMS FastAPI backend..."
+    );
+
+    const connected =
+        await testBackendConnection();
+
+    if (!connected) {
+
+        console.warn(
+            "Backend is not running. Start FastAPI with:"
+        );
+
+        console.warn(
+            "uvicorn app.main:app --reload"
+        );
+
+        return;
+
+    }
+
+    await loadDashboardData();
+
+    await loadEmployeesFromBackend();
+
+    await loadAttendanceFromBackend();
+
+    await loadLeavesFromBackend();
+
+    await loadPayrollFromBackend();
+
+    console.log(
+        "HRMS frontend successfully connected to FastAPI."
+    );
+
+}
+
+
+/* Start backend connection */
+
+initializeBackend();
