@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Flow - Access Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-container">
+
+        <h1>Data Flow</h1>
+        <p class="subtitle">Unified Access Management</p>
+
+        <!-- Login Tabs -->
+        <div class="tabs">
+
+            <button class="tab active" data-panel="interview-login">
+                Interviewer
+            </button>
+
+            <button class="tab" data-panel="employee-login">
+                Employee
+            </button>
+
+            <button class="tab" data-panel="admin-login">
+                Admin
+            </button>
+
+        </div>
+
+
+        <!-- Interviewer Login -->
+        <div id="interview-login" class="login-panel active">
+
+            <h2>Interviewer Login</h2>
+
+            <form id="interviewerForm">
+
+                <label>Interviewer ID</label>
+
+                <input
+                    type="text"
+                    id="interviewerId"
+                    placeholder="Enter Interviewer ID"
+                >
+
+                <label>Password</label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="interviewerPassword"
+                        placeholder="Enter Password"
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        data-target="interviewerPassword">
+                        Show
+                    </button>
+
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+                <p id="interviewerStatus" class="login-status"></p>
+
+            </form>
+
+        </div>
+
+
+        <!-- Employee Login -->
+        <div id="employee-login" class="login-panel">
+
+            <h2>Employee Login</h2>
+
+            <form id="employeeForm">
+
+                <label>Employee ID</label>
+
+                <input
+                    type="text"
+                    id="employeeId"
+                    placeholder="Enter Employee ID"
+                >
+
+                <label>Password</label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="employeePassword"
+                        placeholder="Enter Password"
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        data-target="employeePassword">
+                        Show
+                    </button>
+
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+                <p id="employeeStatus" class="login-status"></p>
+
+            </form>
+
+        </div>
+
+
+        <!-- Admin Login -->
+        <div id="admin-login" class="login-panel">
+
+            <h2>Admin Login</h2>
+
+            <form id="adminForm">
+
+                <label>Admin ID</label>
+
+                <input
+                    type="text"
+                    id="adminId"
+                    placeholder="Enter Admin ID"
+                >
+
+                <label>Password</label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Enter Password"
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        data-target="adminPassword">
+                        Show
+                    </button>
+
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+                <p id="adminStatus" class="login-status"></p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INTERVIEWER DASHBOARD
+===================================================== -->
+
+<div id="interviewerDashboard" class="dashboard-page">
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <h1>Data Flow</h1>
+
+            <p>Interviewer Portal</p>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-menu">
+
+            <button class="side-menu active" data-section="dashboard">
+
+                <span class="menu-icon">📊</span>
+
+                <span>Dashboard</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="profile">
+
+                <span class="menu-icon">👤</span>
+
+                <span>My Profile</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="interviews">
+
+                <span class="menu-icon">📋</span>
+
+                <span>My Interviews</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="schedule">
+
+                <span class="menu-icon">🗓️</span>
+
+                <span>Schedule</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="candidates">
+
+                <span class="menu-icon">👥</span>
+
+                <span>Candidates</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="feedback">
+
+                <span class="menu-icon">💬</span>
+
+                <span>Feedback</span>
+
+            </button>
+
+        </nav>
+
+
+        <!-- Bottom -->
+
+        <div class="sidebar-bottom">
+
+            <div class="logged-user">
+
+                <strong>Interviewer</strong>
+
+                <span id="loggedInterviewerId">INT001</span>
+
+            </div>
+
+            <button id="logoutButton" class="logout-button">
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- RIGHT CONTENT -->
+
+    <main class="dashboard-content">
+
+        <!-- =================================================
+             DASHBOARD SECTION
+        ================================================== -->
+
+        <section id="section-dashboard" class="content-section active">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Interviewer Dashboard</h2>
+
+                    <p>
+                        Welcome back. Here is your interview overview.
+                    </p>
+
+                </div>
+
+                <div class="current-time">
+
+                    <span>Current Time</span>
+
+                    <strong id="currentTime">--:--:--</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- Profile Card -->
+
+                <div class="card profile-card">
+
+                    <div class="card-title">
+                        <h3>Interviewer Profile</h3>
+                    </div>
+
+                    <div class="profile-avatar">
+                        JS
+                    </div>
+
+                    <div class="profile-details">
+
+                        <div>
+                            <span>Name</span>
+                            <strong>John Smith</strong>
+                        </div>
+
+                        <div>
+                            <span>Interviewer ID</span>
+                            <strong id="dashboardInterviewerId">
+                                INT001
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Email</span>
+                            <strong>john@company.com</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong>Technical</strong>
+                        </div>
+
+                        <div>
+                            <span>Phone</span>
+                            <strong>+91 98765 43210</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Interview Process -->
+
+                <div class="card interview-process">
+
+                    <div class="card-title">
+
+                        <h3>Interview Process</h3>
+
+                    </div>
+
+
+                    <div class="timeline">
+
+                        <div class="timeline-item completed">
+
+                            <div class="timeline-circle">✓</div>
+
+                            <span>Application</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item completed">
+
+                            <div class="timeline-circle">✓</div>
+
+                            <span>Screening</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item current">
+
+                            <div class="timeline-circle">●</div>
+
+                            <span>Technical Interview</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item">
+
+                            <div class="timeline-circle">○</div>
+
+                            <span>HR Interview</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item">
+
+                            <div class="timeline-circle">○</div>
+
+                            <span>Final Decision</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stage-box">
+
+                        <div>
+
+                            <span>Current Stage</span>
+
+                            <strong>Technical Interview</strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>Status</span>
+
+                            <strong class="status-orange">
+                                In Progress
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Upcoming Meeting -->
+
+            <div class="card meeting-card">
+
+                <div class="card-title">
+
+                    <h3>Upcoming Meeting</h3>
+
+                </div>
+
+                <div class="meeting-content">
+
+                    <div class="date-box">
+
+                        <strong>25 August 2026</strong>
+
+                        <span>10:30 AM</span>
+
+                    </div>
+
+                    <div class="meeting-info">
+
+                        <p>
+                            <strong>Candidate:</strong>
+                            Alex Johnson
+                        </p>
+
+                        <p>
+                            <strong>Meeting Type:</strong>
+                            Technical Interview
+                        </p>
+
+                    </div>
+
+                    <button class="join-button">
+                        Join Meeting
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Interview Guide -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <h3>Interview Guide</h3>
+
+                </div>
+
+                <div class="guide-content">
+
+                    <p>
+                        Follow the interview guidelines and evaluation
+                        process for the upcoming technical interview.
+                    </p>
+
+                    <button class="guide-button" id="guideButton">
+                        Open Interview Guide
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROFILE SECTION
+        ================================================== -->
+
+        <section id="section-profile" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>My Profile</h2>
+
+                    <p>
+                        View your interviewer information.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card large-card">
+
+                <div class="profile-large">
+
+                    <div class="large-avatar">
+                        JS
+                    </div>
+
+                    <div>
+
+                        <h2>John Smith</h2>
+
+                        <p>Senior Technical Interviewer</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="information-grid">
+
+                    <div class="information-item">
+                        <span>Interviewer ID</span>
+                        <strong id="profileId">INT001</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Full Name</span>
+                        <strong>John Smith</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Email</span>
+                        <strong>john@company.com</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Department</span>
+                        <strong>Technical</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Phone</span>
+                        <strong>+91 98765 43210</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Experience</span>
+                        <strong>8 Years</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MY INTERVIEWS
+        ================================================== -->
+
+        <section id="section-interviews" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>My Interviews</h2>
+
+                    <p>
+                        Manage your assigned interviews.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Interview Type</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>Alex Johnson</td>
+
+                                <td>Technical Interview</td>
+
+                                <td>25 Aug 2026</td>
+
+                                <td>10:30 AM</td>
+
+                                <td>
+                                    <span class="badge progress">
+                                        In Progress
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Sarah Williams</td>
+
+                                <td>Technical Interview</td>
+
+                                <td>26 Aug 2026</td>
+
+                                <td>11:00 AM</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Upcoming
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>David Miller</td>
+
+                                <td>HR Interview</td>
+
+                                <td>27 Aug 2026</td>
+
+                                <td>2:00 PM</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Upcoming
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SCHEDULE
+        ================================================== -->
+
+        <section id="section-schedule" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Schedule</h2>
+
+                    <p>
+                        Your upcoming interview schedule.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="schedule-list">
+
+                <div class="card schedule-item">
+
+                    <div class="schedule-date">
+
+                        <strong>25</strong>
+
+                        <span>AUG</span>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Alex Johnson</h3>
+
+                        <p>Technical Interview</p>
+
+                        <span>10:30 AM</span>
+
+                    </div>
+
+                    <button class="join-button">
+                        Join Meeting
+                    </button>
+
+                </div>
+
+
+                <div class="card schedule-item">
+
+                    <div class="schedule-date">
+
+                        <strong>26</strong>
+
+                        <span>AUG</span>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Sarah Williams</h3>
+
+                        <p>Technical Interview</p>
+
+                        <span>11:00 AM</span>
+
+                    </div>
+
+                    <button class="join-button">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CANDIDATES
+        ================================================== -->
+
+        <section id="section-candidates" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Candidates</h2>
+
+                    <p>
+                        Candidates assigned to you.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="candidate-grid">
+
+                <div class="card candidate-card">
+
+                    <div class="candidate-avatar">
+                        AJ
+                    </div>
+
+                    <h3>Alex Johnson</h3>
+
+                    <p>Software Engineer</p>
+
+                    <span>Technical Interview</span>
+
+                    <button class="view-button">
+                        View Candidate
+                    </button>
+
+                </div>
+
+
+                <div class="card candidate-card">
+
+                    <div class="candidate-avatar">
+                        SW
+                    </div>
+
+                    <h3>Sarah Williams</h3>
+
+                    <p>Frontend Developer</p>
+
+                    <span>Technical Interview</span>
+
+                    <button class="view-button">
+                        View Candidate
+                    </button>
+
+                </div>
+
+
+                <div class="card candidate-card">
+
+                    <div class="candidate-avatar">
+                        DM
+                    </div>
+
+                    <h3>David Miller</h3>
+
+                    <p>Backend Developer</p>
+
+                    <span>HR Interview</span>
+
+                    <button class="view-button">
+                        View Candidate
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FEEDBACK
+        ================================================== -->
+
+        <section id="section-feedback" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Feedback</h2>
+
+                    <p>
+                        Submit and review interview feedback.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card feedback-card">
+
+                <h3>Candidate Feedback</h3>
+
+                <label>Candidate</label>
+
+                <select>
+
+                    <option>Alex Johnson</option>
+                    <option>Sarah Williams</option>
+                    <option>David Miller</option>
+
+                </select>
+
+
+                <label>Interview Result</label>
+
+                <select>
+
+                    <option>Select Result</option>
+                    <option>Recommended</option>
+                    <option>Not Recommended</option>
+                    <option>Further Evaluation Required</option>
+
+                </select>
+
+
+                <label>Comments</label>
+
+                <textarea
+                    placeholder="Enter your interview feedback..."
+                    rows="6"></textarea>
+
+
+                <button class="submit-feedback">
+                    Submit Feedback
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     INTERVIEW GUIDE MODAL
+===================================================== -->
+
+<div id="guideModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal" id="closeGuide">
+            ×
+        </button>
+
+        <h2>Interview Guide</h2>
+
+        <h3>Technical Interview</h3>
+
+        <ul>
+
+            <li>Introduce yourself and the interview process.</li>
+
+            <li>Explain the technical problem clearly.</li>
+
+            <li>Allow the candidate enough time to think.</li>
+
+            <li>Evaluate technical knowledge and problem-solving.</li>
+
+            <li>Record your feedback after the interview.</li>
+
+        </ul>
+
+        <button class="guide-button">
+            Got It
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

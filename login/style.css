@@ -1,0 +1,1057 @@
+/* =====================================================
+   GENERAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f5fa;
+    color: #171717;
+}
+
+
+/* =====================================================
+   LOGIN PAGE
+===================================================== */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(
+        135deg,
+        #667eea,
+        #764ba2
+    );
+}
+
+.login-container {
+    width: 480px;
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+.login-container h1 {
+    text-align: center;
+    font-size: 34px;
+    color: #111;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    margin-top: 8px;
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   LOGIN TABS
+===================================================== */
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.tab {
+    flex: 1;
+    border: none;
+    padding: 14px;
+    border-radius: 9px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    background: #eeeeee;
+}
+
+.tab.active {
+    background: #667eea;
+    color: white;
+}
+
+
+/* =====================================================
+   LOGIN PANELS
+===================================================== */
+
+.login-panel {
+    display: none;
+}
+
+.login-panel.active {
+    display: block;
+}
+
+.login-panel h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-panel label {
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 18px;
+    font-weight: bold;
+}
+
+.login-panel input,
+.feedback-card select,
+.feedback-card textarea {
+    width: 100%;
+    padding: 14px;
+
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+
+    font-size: 15px;
+    outline: none;
+}
+
+.login-panel input:focus,
+.feedback-card select:focus,
+.feedback-card textarea:focus {
+    border-color: #6545df;
+}
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+.password-wrapper {
+    display: flex;
+    gap: 6px;
+}
+
+.password-wrapper input {
+    flex: 1;
+}
+
+.show-password {
+    width: 70px;
+    border: none;
+    border-radius: 8px;
+
+    background: #eeeeee;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+.login-button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #667eea;
+    color: white;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background: #563fd1;
+}
+
+.login-status {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard-page {
+    display: none;
+    min-height: 100vh;
+}
+
+.dashboard-page.active {
+    display: flex;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+    width: 285px;
+    min-height: 100vh;
+
+    background: white;
+    border-right: 1px solid #ddd;
+
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.sidebar-top {
+    padding: 30px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.sidebar-top h1 {
+    color: #5c3be5;
+    font-size: 25px;
+}
+
+.sidebar-top p {
+    color: #777;
+    margin-top: 6px;
+}
+
+
+/* =====================================================
+   SIDEBAR MENU
+===================================================== */
+
+.sidebar-menu {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.side-menu {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 16px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #555;
+
+    font-size: 16px;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.side-menu:hover {
+    background: #f0edff;
+    color: #5c3be5;
+}
+
+.side-menu.active {
+    background: #eeeaff;
+    color: #5534dc;
+
+    box-shadow: inset 0 0 0 2px #111;
+}
+
+.menu-icon {
+    width: 25px;
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   SIDEBAR BOTTOM
+===================================================== */
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.logged-user {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.logged-user span {
+    color: #777;
+    margin-top: 4px;
+}
+
+.logout-button {
+    width: 100%;
+    padding: 12px;
+
+    background: #ff3154;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background: #dc1738;
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+
+.dashboard-content {
+    margin-left: 285px;
+
+    width: calc(100% - 285px);
+
+    padding: 35px;
+
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   CONTENT SECTIONS
+===================================================== */
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    font-size: 28px;
+}
+
+.page-header p {
+    color: #777;
+    margin-top: 7px;
+}
+
+.current-time {
+    background: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+}
+
+.current-time span {
+    display: block;
+    color: #777;
+    font-size: 12px;
+}
+
+.current-time strong {
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.card {
+    background: white;
+    border-radius: 14px;
+
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.card-title {
+    padding: 22px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.card-title h3 {
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   DASHBOARD GRID
+===================================================== */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns: 330px 1fr;
+
+    gap: 25px;
+
+    align-items: start;
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile-card {
+    min-height: 480px;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+
+    margin: 25px auto;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #6744e8;
+    color: white;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.profile-details {
+    padding: 0 22px;
+}
+
+.profile-details div {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 17px 0;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.profile-details span {
+    color: #666;
+}
+
+.profile-details strong {
+    text-align: right;
+}
+
+
+/* =====================================================
+   TIMELINE
+===================================================== */
+
+.interview-process {
+    padding-bottom: 22px;
+}
+
+.timeline {
+    display: flex;
+    align-items: flex-start;
+
+    padding: 45px 25px 30px;
+
+    width: 100%;
+}
+
+.timeline-item {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    color: #777;
+    font-size: 13px;
+}
+
+.timeline-circle {
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
+
+    background: #eeeeee;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    font-size: 18px;
+}
+
+.timeline-item.completed {
+    color: #00bd5b;
+    font-weight: bold;
+}
+
+.timeline-item.completed .timeline-circle {
+    background: #00c968;
+    color: white;
+}
+
+.timeline-item.current {
+    color: #6242e6;
+    font-weight: bold;
+}
+
+.timeline-item.current .timeline-circle {
+    background: #6846e8;
+    color: white;
+
+    box-shadow: 0 0 0 8px #eeeaff;
+}
+
+.timeline-line {
+    flex: 0.5;
+
+    height: 3px;
+
+    background: #6040dd;
+
+    margin-top: 21px;
+}
+
+
+/* =====================================================
+   STAGE
+===================================================== */
+
+.stage-box {
+    margin: 0 25px;
+
+    padding: 20px;
+
+    background: #f7f7f7;
+
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.stage-box span {
+    display: block;
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.status-orange {
+    color: #ff8a00;
+}
+
+
+/* =====================================================
+   MEETING
+===================================================== */
+
+.meeting-content {
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+}
+
+.date-box {
+    min-width: 160px;
+
+    padding: 18px;
+
+    border-radius: 9px;
+
+    background: #6846e8;
+    color: white;
+
+    text-align: center;
+}
+
+.date-box strong {
+    display: block;
+    font-size: 16px;
+}
+
+.date-box span {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.meeting-info {
+    flex: 1;
+}
+
+.meeting-info p {
+    margin: 12px 0;
+}
+
+.join-button {
+    padding: 14px 22px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #6846e8;
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.join-button:hover {
+    background: #5234cf;
+}
+
+
+/* =====================================================
+   GUIDE
+===================================================== */
+
+.guide-content {
+    padding: 25px;
+}
+
+.guide-content p {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.guide-button,
+.submit-feedback,
+.view-button {
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #6846e8;
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   PROFILE PAGE
+===================================================== */
+
+.large-card {
+    padding: 30px;
+}
+
+.profile-large {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    margin-bottom: 35px;
+}
+
+.large-avatar {
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #6846e8;
+    color: white;
+
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.profile-large p {
+    color: #777;
+    margin-top: 7px;
+}
+
+.information-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.information-item {
+    padding: 20px;
+
+    background: #f8f8f8;
+
+    border-radius: 10px;
+}
+
+.information-item span {
+    display: block;
+
+    color: #777;
+    font-size: 14px;
+
+    margin-bottom: 7px;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 18px;
+    text-align: left;
+
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #f8f8f8;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge.progress {
+    background: #fff0d9;
+    color: #e98400;
+}
+
+.badge.upcoming {
+    background: #e8e5ff;
+    color: #5938dc;
+}
+
+
+/* =====================================================
+   SCHEDULE
+===================================================== */
+
+.schedule-item {
+    padding: 22px;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.schedule-date {
+    width: 80px;
+    height: 80px;
+
+    border-radius: 10px;
+
+    background: #6846e8;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.schedule-date strong {
+    font-size: 28px;
+}
+
+.schedule-date span {
+    font-size: 13px;
+}
+
+.schedule-item > div:nth-child(2) {
+    flex: 1;
+}
+
+.schedule-item h3 {
+    margin-bottom: 7px;
+}
+
+.schedule-item p {
+    color: #777;
+    margin-bottom: 7px;
+}
+
+
+/* =====================================================
+   CANDIDATES
+===================================================== */
+
+.candidate-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.candidate-card {
+    padding: 30px;
+    text-align: center;
+}
+
+.candidate-avatar {
+    width: 75px;
+    height: 75px;
+
+    border-radius: 50%;
+
+    margin: auto auto 15px;
+
+    background: #6846e8;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.candidate-card p {
+    color: #777;
+    margin: 7px 0;
+}
+
+.candidate-card > span {
+    display: block;
+    color: #6846e8;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   FEEDBACK
+===================================================== */
+
+.feedback-card {
+    padding: 30px;
+
+    max-width: 800px;
+}
+
+.feedback-card h3 {
+    margin-bottom: 25px;
+}
+
+.feedback-card label {
+    display: block;
+    margin: 18px 0 8px;
+    font-weight: bold;
+}
+
+.feedback-card textarea {
+    resize: vertical;
+}
+
+.submit-feedback {
+    margin-top: 20px;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.55);
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    width: 500px;
+    max-width: 90%;
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 35px;
+
+    position: relative;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content h3 {
+    margin-bottom: 15px;
+}
+
+.modal-content li {
+    margin: 15px 0;
+}
+
+.close-modal {
+    position: absolute;
+
+    right: 20px;
+    top: 15px;
+
+    border: none;
+
+    background: none;
+
+    font-size: 30px;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .candidate-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media (max-width: 750px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .dashboard-content {
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        padding: 20px;
+    }
+
+    .meeting-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .candidate-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .login-container {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        min-height: auto;
+    }
+
+    .dashboard-page {
+        flex-direction: column;
+    }
+
+    .dashboard-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .information-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline {
+        overflow-x: auto;
+        min-width: 700px;
+    }
+
+}
