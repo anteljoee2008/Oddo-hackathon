@@ -1,0 +1,3340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Flow - Access Portal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-container">
+
+        <h1>Data Flow</h1>
+        <p class="subtitle">Unified Access Management</p>
+
+        <!-- Login Tabs -->
+        <div class="tabs">
+
+            <button class="tab active" data-panel="interview-login">
+                Interviewer
+            </button>
+
+            <button class="tab" data-panel="employee-login">
+                Employee
+            </button>
+
+            <button class="tab" data-panel="admin-login">
+                Admin
+            </button>
+
+        </div>
+
+
+        <!-- Interviewer Login -->
+        <div id="interview-login" class="login-panel active">
+
+            <h2>Interviewer Login</h2>
+
+            <form id="interviewerForm">
+
+                <label>Interviewer ID</label>
+
+                <input
+                    type="text"
+                    id="interviewerId"
+                    placeholder="Enter Interviewer ID"
+                >
+
+                <label>Password</label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="interviewerPassword"
+                        placeholder="Enter Password"
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        data-target="interviewerPassword">
+                        Show
+                    </button>
+
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+                <p id="interviewerStatus" class="login-status"></p>
+
+            </form>
+
+        </div>
+
+
+        <!-- Employee Login -->
+        <div id="employee-login" class="login-panel">
+
+            <h2>Employee Login</h2>
+
+            <form id="employeeForm">
+
+                <label>Employee ID</label>
+
+                <input
+                    type="text"
+                    id="employeeId"
+                    placeholder="Enter Employee ID"
+                >
+
+                <label>Password</label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="employeePassword"
+                        placeholder="Enter Password"
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        data-target="employeePassword">
+                        Show
+                    </button>
+
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+                <p id="employeeStatus" class="login-status"></p>
+
+            </form>
+
+        </div>
+
+
+        <!-- Admin Login -->
+        <div id="admin-login" class="login-panel">
+
+            <h2>Admin Login</h2>
+
+            <form id="adminForm">
+
+                <label>Admin ID</label>
+
+                <input
+                    type="text"
+                    id="adminId"
+                    placeholder="Enter Admin ID"
+                >
+
+                <label>Password</label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Enter Password"
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        data-target="adminPassword">
+                        Show
+                    </button>
+
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+                <p id="adminStatus" class="login-status"></p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INTERVIEWER DASHBOARD
+===================================================== -->
+
+<div id="interviewerDashboard" class="dashboard-page">
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <h1>Data Flow</h1>
+
+            <p>Interviewer Portal</p>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-menu">
+
+            <button class="side-menu active" data-section="dashboard">
+
+                <span class="menu-icon">📊</span>
+
+                <span>Dashboard</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="profile">
+
+                <span class="menu-icon">👤</span>
+
+                <span>My Profile</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="interviews">
+
+                <span class="menu-icon">📋</span>
+
+                <span>My Interviews</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="schedule">
+
+                <span class="menu-icon">🗓️</span>
+
+                <span>Schedule</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="candidates">
+
+                <span class="menu-icon">👥</span>
+
+                <span>Candidates</span>
+
+            </button>
+
+
+            <button class="side-menu" data-section="feedback">
+
+                <span class="menu-icon">💬</span>
+
+                <span>Feedback</span>
+
+            </button>
+
+        </nav>
+
+
+        <!-- Bottom -->
+
+        <div class="sidebar-bottom">
+
+            <div class="logged-user">
+
+                <strong>Interviewer</strong>
+
+                <span id="loggedInterviewerId">INT001</span>
+
+            </div>
+
+            <button id="logoutButton" class="logout-button">
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- RIGHT CONTENT -->
+
+    <main class="dashboard-content">
+
+        <!-- =================================================
+             DASHBOARD SECTION
+        ================================================== -->
+
+        <section id="section-dashboard" class="content-section active">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Interviewer Dashboard</h2>
+
+                    <p>
+                        Welcome back. Here is your interview overview.
+                    </p>
+
+                </div>
+
+                <div class="current-time">
+
+                    <span>Current Time</span>
+
+                    <strong id="currentTime">--:--:--</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- Profile Card -->
+
+                <div class="card profile-card">
+
+                    <div class="card-title">
+                        <h3>Interviewer Profile</h3>
+                    </div>
+
+                    <div class="profile-avatar" id="interviewerAvatarDash">
+                        JS
+                    </div>
+
+                    <div class="profile-details">
+
+                        <div>
+                            <span>Name</span>
+                            <strong id="interviewerNameDash">John Smith</strong>
+                        </div>
+
+                        <div>
+                            <span>Interviewer ID</span>
+                            <strong id="dashboardInterviewerId">
+                                INT001
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Email</span>
+                            <strong id="interviewerEmailDash">john@company.com</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong id="interviewerDeptDash">Technical</strong>
+                        </div>
+
+                        <div>
+                            <span>Phone</span>
+                            <strong id="interviewerPhoneDash">+91 98765 43210</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Interview Process -->
+
+                <div class="card interview-process">
+
+                    <div class="card-title">
+
+                        <h3>Interview Process</h3>
+
+                    </div>
+
+
+                    <div class="timeline">
+
+                        <div class="timeline-item completed">
+
+                            <div class="timeline-circle">✓</div>
+
+                            <span>Application</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item completed">
+
+                            <div class="timeline-circle">✓</div>
+
+                            <span>Screening</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item current">
+
+                            <div class="timeline-circle">●</div>
+
+                            <span>Technical Interview</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item">
+
+                            <div class="timeline-circle">○</div>
+
+                            <span>HR Interview</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item">
+
+                            <div class="timeline-circle">○</div>
+
+                            <span>Final Decision</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stage-box">
+
+                        <div>
+
+                            <span>Current Stage</span>
+
+                            <strong>Technical Interview</strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>Status</span>
+
+                            <strong class="status-orange">
+                                In Progress
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Upcoming Meeting -->
+
+            <div class="card meeting-card">
+
+                <div class="card-title">
+
+                    <h3>Upcoming Meeting</h3>
+
+                </div>
+
+                <div class="meeting-content">
+
+                    <div class="date-box">
+
+                        <strong>25 August 2026</strong>
+
+                        <span>10:30 AM</span>
+
+                    </div>
+
+                    <div class="meeting-info">
+
+                        <p>
+                            <strong>Candidate:</strong>
+                            Alex Johnson
+                        </p>
+
+                        <p>
+                            <strong>Meeting Type:</strong>
+                            Technical Interview
+                        </p>
+
+                    </div>
+
+                    <button class="join-button">
+                        Join Meeting
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Interview Guide -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <h3>Interview Guide</h3>
+
+                </div>
+
+                <div class="guide-content">
+
+                    <p>
+                        Follow the interview guidelines and evaluation
+                        process for the upcoming technical interview.
+                    </p>
+
+                    <button class="guide-button" id="guideButton">
+                        Open Interview Guide
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROFILE SECTION
+        ================================================== -->
+
+        <section id="section-profile" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>My Profile</h2>
+
+                    <p>
+                        View your interviewer information.
+                    </p>
+
+                </div>
+
+                <button class="guide-button" id="interviewerEditButton">
+                    Edit Profile
+                </button>
+
+            </div>
+
+
+            <div class="card large-card">
+
+                <div class="profile-large">
+
+                    <div class="large-avatar" id="interviewerAvatarProfile">
+                        JS
+                    </div>
+
+                    <div>
+
+                        <h2 id="interviewerNameProfile">John Smith</h2>
+
+                        <p>Senior Technical Interviewer</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="information-grid">
+
+                    <div class="information-item">
+                        <span>Interviewer ID</span>
+                        <strong id="profileId">INT001</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Full Name</span>
+                        <strong id="interviewerNameField">John Smith</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Email</span>
+                        <strong id="interviewerEmailField">john@company.com</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Department</span>
+                        <strong id="interviewerDeptField">Technical</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Phone</span>
+                        <strong id="interviewerPhoneField">+91 98765 43210</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Experience</span>
+                        <strong id="interviewerExperienceField">8 Years</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MY INTERVIEWS
+        ================================================== -->
+
+        <section id="section-interviews" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>My Interviews</h2>
+
+                    <p>
+                        Manage your assigned interviews.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Interview Type</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>Alex Johnson</td>
+
+                                <td>Technical Interview</td>
+
+                                <td>25 Aug 2026</td>
+
+                                <td>10:30 AM</td>
+
+                                <td>
+                                    <span class="badge progress">
+                                        In Progress
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Sarah Williams</td>
+
+                                <td>Technical Interview</td>
+
+                                <td>26 Aug 2026</td>
+
+                                <td>11:00 AM</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Upcoming
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>David Miller</td>
+
+                                <td>HR Interview</td>
+
+                                <td>27 Aug 2026</td>
+
+                                <td>2:00 PM</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Upcoming
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SCHEDULE
+        ================================================== -->
+
+        <section id="section-schedule" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Schedule</h2>
+
+                    <p>
+                        Your upcoming interview schedule.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="schedule-list">
+
+                <div class="card schedule-item">
+
+                    <div class="schedule-date">
+
+                        <strong>25</strong>
+
+                        <span>AUG</span>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Alex Johnson</h3>
+
+                        <p>Technical Interview</p>
+
+                        <span>10:30 AM</span>
+
+                    </div>
+
+                    <button class="join-button">
+                        Join Meeting
+                    </button>
+
+                </div>
+
+
+                <div class="card schedule-item">
+
+                    <div class="schedule-date">
+
+                        <strong>26</strong>
+
+                        <span>AUG</span>
+
+                    </div>
+
+                    <div>
+
+                        <h3>Sarah Williams</h3>
+
+                        <p>Technical Interview</p>
+
+                        <span>11:00 AM</span>
+
+                    </div>
+
+                    <button class="join-button">
+                        View Details
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CANDIDATES
+        ================================================== -->
+
+        <section id="section-candidates" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Candidates</h2>
+
+                    <p>
+                        Candidates assigned to you.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="candidate-grid">
+
+                <div class="card candidate-card">
+
+                    <div class="candidate-avatar">
+                        AJ
+                    </div>
+
+                    <h3>Alex Johnson</h3>
+
+                    <p>Software Engineer</p>
+
+                    <span>Technical Interview</span>
+
+                    <button class="view-button">
+                        View Candidate
+                    </button>
+
+                </div>
+
+
+                <div class="card candidate-card">
+
+                    <div class="candidate-avatar">
+                        SW
+                    </div>
+
+                    <h3>Sarah Williams</h3>
+
+                    <p>Frontend Developer</p>
+
+                    <span>Technical Interview</span>
+
+                    <button class="view-button">
+                        View Candidate
+                    </button>
+
+                </div>
+
+
+                <div class="card candidate-card">
+
+                    <div class="candidate-avatar">
+                        DM
+                    </div>
+
+                    <h3>David Miller</h3>
+
+                    <p>Backend Developer</p>
+
+                    <span>HR Interview</span>
+
+                    <button class="view-button">
+                        View Candidate
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FEEDBACK
+        ================================================== -->
+
+        <section id="section-feedback" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Feedback</h2>
+
+                    <p>
+                        Submit and review interview feedback.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card feedback-card">
+
+                <h3>Candidate Feedback</h3>
+
+                <label>Candidate</label>
+
+                <select>
+
+                    <option>Alex Johnson</option>
+                    <option>Sarah Williams</option>
+                    <option>David Miller</option>
+
+                </select>
+
+
+                <label>Interview Result</label>
+
+                <select>
+
+                    <option>Select Result</option>
+                    <option>Recommended</option>
+                    <option>Not Recommended</option>
+                    <option>Further Evaluation Required</option>
+
+                </select>
+
+
+                <label>Comments</label>
+
+                <textarea
+                    placeholder="Enter your interview feedback..."
+                    rows="6"></textarea>
+
+
+                <button class="submit-feedback">
+                    Submit Feedback
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     EMPLOYEE DASHBOARD
+===================================================== -->
+
+<div id="employeeDashboard" class="dashboard-page">
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <h1>Data Flow</h1>
+
+            <p>Employee Portal</p>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-menu">
+
+            <button class="side-menu active" data-emp-section="dashboard">
+
+                <span class="menu-icon">📊</span>
+
+                <span>Dashboard</span>
+
+            </button>
+
+
+            <button class="side-menu" data-emp-section="profile">
+
+                <span class="menu-icon">👤</span>
+
+                <span>My Profile</span>
+
+            </button>
+
+
+            <button class="side-menu" data-emp-section="attendance">
+
+                <span class="menu-icon">🕒</span>
+
+                <span>Attendance</span>
+
+            </button>
+
+
+            <button class="side-menu" data-emp-section="leave">
+
+                <span class="menu-icon">🌴</span>
+
+                <span>Leave Requests</span>
+
+            </button>
+
+
+            <button class="side-menu" data-emp-section="payslips">
+
+                <span class="menu-icon">💳</span>
+
+                <span>Payslips</span>
+
+            </button>
+
+
+            <button class="side-menu" data-emp-section="announcements">
+
+                <span class="menu-icon">📢</span>
+
+                <span>Announcements</span>
+
+            </button>
+
+        </nav>
+
+
+        <!-- Bottom -->
+
+        <div class="sidebar-bottom">
+
+            <div class="logged-user">
+
+                <strong>Employee</strong>
+
+                <span id="loggedEmployeeId">EMP001</span>
+
+            </div>
+
+            <button id="employeeLogoutButton" class="logout-button">
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- RIGHT CONTENT -->
+
+    <main class="dashboard-content">
+
+        <!-- =================================================
+             DASHBOARD SECTION
+        ================================================== -->
+
+        <section id="emp-section-dashboard" class="content-section active">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Employee Dashboard</h2>
+
+                    <p>
+                        Welcome back. Here is your work overview.
+                    </p>
+
+                </div>
+
+                <div class="current-time">
+
+                    <span>Current Time</span>
+
+                    <strong id="employeeCurrentTime">--:--:--</strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- Profile Card -->
+
+                <div class="card profile-card">
+
+                    <div class="card-title">
+                        <h3>Employee Profile</h3>
+                    </div>
+
+                    <div class="profile-avatar" id="employeeAvatarDash">
+                        PM
+                    </div>
+
+                    <div class="profile-details">
+
+                        <div>
+                            <span>Name</span>
+                            <strong id="employeeNameDash">Priya Menon</strong>
+                        </div>
+
+                        <div>
+                            <span>Employee ID</span>
+                            <strong id="dashboardEmployeeId">
+                                EMP001
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Email</span>
+                            <strong id="employeeEmailDash">priya@company.com</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong id="employeeDeptDash">Product Design</strong>
+                        </div>
+
+                        <div>
+                            <span>Phone</span>
+                            <strong id="employeePhoneDash">+91 91234 56789</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Quick Stats -->
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h3>This Month</h3>
+
+                    </div>
+
+
+                    <div class="stats-grid">
+
+                        <div class="stat-box">
+
+                            <span>Days Present</span>
+
+                            <strong>18</strong>
+
+                        </div>
+
+                        <div class="stat-box">
+
+                            <span>Leaves Taken</span>
+
+                            <strong>2</strong>
+
+                        </div>
+
+                        <div class="stat-box">
+
+                            <span>Leave Balance</span>
+
+                            <strong>10</strong>
+
+                        </div>
+
+                        <div class="stat-box">
+
+                            <span>Pending Tasks</span>
+
+                            <strong>3</strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stage-box">
+
+                        <div>
+
+                            <span>Today's Status</span>
+
+                            <strong id="attendanceStatusLabel" class="status-orange">
+                                Not Checked In
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>Check-in Time</span>
+
+                            <strong id="checkInTimeLabel">--:--</strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Attendance Action -->
+
+            <div class="card meeting-card">
+
+                <div class="card-title">
+
+                    <h3>Attendance</h3>
+
+                </div>
+
+                <div class="meeting-content">
+
+                    <div class="date-box">
+
+                        <strong id="todayDateLabel">22 August 2026</strong>
+
+                        <span id="todayDayLabel">Sat</span>
+
+                    </div>
+
+                    <div class="meeting-info">
+
+                        <p>
+                            Mark your attendance for today. Your check-in
+                            and check-out times will be recorded below.
+                        </p>
+
+                    </div>
+
+                    <button class="join-button" id="checkInButton">
+                        Check In
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Announcement Preview -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <h3>Latest Announcement</h3>
+
+                </div>
+
+                <div class="guide-content">
+
+                    <p>
+                        The quarterly town hall is scheduled for next
+                        Friday. Please check the Announcements tab for
+                        full details.
+                    </p>
+
+                    <button class="guide-button" id="employeeAnnouncementButton">
+                        View Announcements
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROFILE SECTION
+        ================================================== -->
+
+        <section id="emp-section-profile" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>My Profile</h2>
+
+                    <p>
+                        View your employee information.
+                    </p>
+
+                </div>
+
+                <button class="guide-button" id="employeeEditButton">
+                    Edit Profile
+                </button>
+
+            </div>
+
+
+            <div class="card large-card">
+
+                <div class="profile-large">
+
+                    <div class="large-avatar" id="employeeAvatarProfile">
+                        PM
+                    </div>
+
+                    <div>
+
+                        <h2 id="employeeNameProfile">Priya Menon</h2>
+
+                        <p>Senior Product Designer</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="information-grid">
+
+                    <div class="information-item">
+                        <span>Employee ID</span>
+                        <strong id="profileEmployeeId">EMP001</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Full Name</span>
+                        <strong id="employeeNameField">Priya Menon</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Email</span>
+                        <strong id="employeeEmailField">priya@company.com</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Department</span>
+                        <strong id="employeeDeptField">Product Design</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Phone</span>
+                        <strong id="employeePhoneField">+91 91234 56789</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Manager</span>
+                        <strong>Ananya Rao</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Date Joined</span>
+                        <strong>14 March 2022</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Employment Type</span>
+                        <strong id="employeeTypeField">Full-Time</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ATTENDANCE
+        ================================================== -->
+
+        <section id="emp-section-attendance" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Attendance</h2>
+
+                    <p>
+                        Your attendance record for this month.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Hours</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="attendanceTableBody">
+
+                            <tr>
+
+                                <td>21 Aug 2026</td>
+
+                                <td>09:32 AM</td>
+
+                                <td>06:15 PM</td>
+
+                                <td>8h 43m</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Present
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>20 Aug 2026</td>
+
+                                <td>09:41 AM</td>
+
+                                <td>06:02 PM</td>
+
+                                <td>8h 21m</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Present
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>19 Aug 2026</td>
+
+                                <td>--</td>
+
+                                <td>--</td>
+
+                                <td>--</td>
+
+                                <td>
+                                    <span class="badge progress">
+                                        Leave
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LEAVE REQUESTS
+        ================================================== -->
+
+        <section id="emp-section-leave" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Leave Requests</h2>
+
+                    <p>
+                        Apply for leave and track your requests.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card feedback-card">
+
+                <h3>Apply for Leave</h3>
+
+                <form id="leaveForm">
+
+                    <label>Leave Type</label>
+
+                    <select id="leaveType">
+
+                        <option>Casual Leave</option>
+                        <option>Sick Leave</option>
+                        <option>Earned Leave</option>
+                        <option>Work From Home</option>
+
+                    </select>
+
+
+                    <label>From Date</label>
+
+                    <input type="date" id="leaveFrom">
+
+
+                    <label>To Date</label>
+
+                    <input type="date" id="leaveTo">
+
+
+                    <label>Reason</label>
+
+                    <textarea
+                        id="leaveReason"
+                        placeholder="Enter your reason for leave..."
+                        rows="4"></textarea>
+
+
+                    <button type="submit" class="submit-feedback">
+                        Submit Request
+                    </button>
+
+                    <p id="leaveStatus" class="login-status"></p>
+
+                </form>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    <h3>Request History</h3>
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Type</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="leaveHistoryBody">
+
+                            <tr>
+
+                                <td>Sick Leave</td>
+
+                                <td>19 Aug 2026</td>
+
+                                <td>19 Aug 2026</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Approved
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Casual Leave</td>
+
+                                <td>02 Sep 2026</td>
+
+                                <td>03 Sep 2026</td>
+
+                                <td>
+                                    <span class="badge progress">
+                                        Pending
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PAYSLIPS
+        ================================================== -->
+
+        <section id="emp-section-payslips" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Payslips</h2>
+
+                    <p>
+                        View and download your monthly payslips.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Month</th>
+                                <th>Gross Pay</th>
+                                <th>Deductions</th>
+                                <th>Net Pay</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>July 2026</td>
+
+                                <td>₹85,000</td>
+
+                                <td>₹9,200</td>
+
+                                <td>₹75,800</td>
+
+                                <td>
+                                    <button class="view-button payslip-download">
+                                        Download
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>June 2026</td>
+
+                                <td>₹85,000</td>
+
+                                <td>₹9,200</td>
+
+                                <td>₹75,800</td>
+
+                                <td>
+                                    <button class="view-button payslip-download">
+                                        Download
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>May 2026</td>
+
+                                <td>₹82,000</td>
+
+                                <td>₹8,900</td>
+
+                                <td>₹73,100</td>
+
+                                <td>
+                                    <button class="view-button payslip-download">
+                                        Download
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ANNOUNCEMENTS
+        ================================================== -->
+
+        <section id="emp-section-announcements" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Announcements</h2>
+
+                    <p>
+                        Company news and updates.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card announcement-item">
+
+                <div class="card-title">
+                    <h3>Quarterly Town Hall</h3>
+                </div>
+
+                <div class="guide-content">
+                    <p>
+                        Join the all-hands town hall next Friday at
+                        4:00 PM to hear updates from leadership and
+                        celebrate this quarter's wins.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="card announcement-item">
+
+                <div class="card-title">
+                    <h3>Holiday Calendar Updated</h3>
+                </div>
+
+                <div class="guide-content">
+                    <p>
+                        The holiday calendar for the rest of the year
+                        has been published. Check with your manager if
+                        you have questions about regional holidays.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="card announcement-item">
+
+                <div class="card-title">
+                    <h3>New Wellness Benefit</h3>
+                </div>
+
+                <div class="guide-content">
+                    <p>
+                        A new wellness reimbursement benefit is now
+                        active. Visit the benefits portal to enroll.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+===================================================== -->
+
+<div id="adminDashboard" class="dashboard-page">
+
+    <!-- LEFT SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <h1>Data Flow</h1>
+
+            <p>Admin Portal</p>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-menu">
+
+            <button class="side-menu active" data-admin-section="dashboard">
+
+                <span class="menu-icon">📊</span>
+
+                <span>Dashboard</span>
+
+            </button>
+
+
+            <button class="side-menu" data-admin-section="profile">
+
+                <span class="menu-icon">👤</span>
+
+                <span>My Profile</span>
+
+            </button>
+
+
+            <button class="side-menu" data-admin-section="employees">
+
+                <span class="menu-icon">🧑‍💼</span>
+
+                <span>Employees</span>
+
+            </button>
+
+
+            <button class="side-menu" data-admin-section="interviewers">
+
+                <span class="menu-icon">🗂️</span>
+
+                <span>Interviewers</span>
+
+            </button>
+
+
+            <button class="side-menu" data-admin-section="interviews">
+
+                <span class="menu-icon">📋</span>
+
+                <span>Interviews</span>
+
+            </button>
+
+
+            <button class="side-menu" data-admin-section="reports">
+
+                <span class="menu-icon">📈</span>
+
+                <span>Reports</span>
+
+            </button>
+
+
+            <button class="side-menu" data-admin-section="settings">
+
+                <span class="menu-icon">⚙️</span>
+
+                <span>Settings</span>
+
+            </button>
+
+        </nav>
+
+
+        <!-- Bottom -->
+
+        <div class="sidebar-bottom">
+
+            <div class="logged-user">
+
+                <strong>Admin</strong>
+
+                <span id="loggedAdminId">ADM001</span>
+
+            </div>
+
+            <button id="adminLogoutButton" class="logout-button">
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- RIGHT CONTENT -->
+
+    <main class="dashboard-content">
+
+        <!-- =================================================
+             DASHBOARD SECTION
+        ================================================== -->
+
+        <section id="admin-section-dashboard" class="content-section active">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Admin Dashboard</h2>
+
+                    <p>
+                        Organization-wide hiring and workforce overview.
+                    </p>
+
+                </div>
+
+                <div class="current-time">
+
+                    <span>Current Time</span>
+
+                    <strong id="adminCurrentTime">--:--:--</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Overview Stats -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    <h3>Organization Overview</h3>
+                </div>
+
+                <div class="stats-grid stats-grid-admin">
+
+                    <div class="stat-box">
+
+                        <span>Total Employees</span>
+
+                        <strong>128</strong>
+
+                    </div>
+
+                    <div class="stat-box">
+
+                        <span>Interviewers</span>
+
+                        <strong>14</strong>
+
+                    </div>
+
+                    <div class="stat-box">
+
+                        <span>Open Positions</span>
+
+                        <strong>9</strong>
+
+                    </div>
+
+                    <div class="stat-box">
+
+                        <span>Interviews Today</span>
+
+                        <strong>5</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- Profile Card -->
+
+                <div class="card profile-card">
+
+                    <div class="card-title">
+                        <h3>Admin Profile</h3>
+                    </div>
+
+                    <div class="profile-avatar" id="adminAvatarDash">
+                        RK
+                    </div>
+
+                    <div class="profile-details">
+
+                        <div>
+                            <span>Name</span>
+                            <strong id="adminNameDash">Ravi Kapoor</strong>
+                        </div>
+
+                        <div>
+                            <span>Admin ID</span>
+                            <strong id="dashboardAdminId">
+                                ADM001
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Email</span>
+                            <strong id="adminEmailDash">ravi@company.com</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong id="adminDeptDash">Human Resources</strong>
+                        </div>
+
+                        <div>
+                            <span>Phone</span>
+                            <strong id="adminPhoneDash">+91 90000 11223</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Hiring Pipeline -->
+
+                <div class="card interview-process">
+
+                    <div class="card-title">
+
+                        <h3>Hiring Pipeline</h3>
+
+                    </div>
+
+
+                    <div class="timeline">
+
+                        <div class="timeline-item completed">
+
+                            <div class="timeline-circle">42</div>
+
+                            <span>Applications</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item completed">
+
+                            <div class="timeline-circle">21</div>
+
+                            <span>Screening</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item current">
+
+                            <div class="timeline-circle">12</div>
+
+                            <span>Technical</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item">
+
+                            <div class="timeline-circle">6</div>
+
+                            <span>HR Round</span>
+
+                        </div>
+
+
+                        <div class="timeline-line"></div>
+
+
+                        <div class="timeline-item">
+
+                            <div class="timeline-circle">3</div>
+
+                            <span>Offer</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stage-box">
+
+                        <div>
+
+                            <span>Positions Filled This Month</span>
+
+                            <strong>3</strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>Avg. Time To Hire</span>
+
+                            <strong class="status-green">
+                                18 Days
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Recent Activity -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <h3>Recent Activity</h3>
+
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Activity</th>
+                                <th>Person</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>Technical Interview Scheduled</td>
+
+                                <td>Alex Johnson</td>
+
+                                <td>25 Aug 2026</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Upcoming
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Leave Request Submitted</td>
+
+                                <td>Priya Menon</td>
+
+                                <td>21 Aug 2026</td>
+
+                                <td>
+                                    <span class="badge progress">
+                                        Pending
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>New Employee Onboarded</td>
+
+                                <td>David Miller</td>
+
+                                <td>18 Aug 2026</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Completed
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROFILE SECTION
+        ================================================== -->
+
+        <section id="admin-section-profile" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>My Profile</h2>
+
+                    <p>
+                        View your admin account information.
+                    </p>
+
+                </div>
+
+                <button class="guide-button" id="adminEditButton">
+                    Edit Profile
+                </button>
+
+            </div>
+
+
+            <div class="card large-card">
+
+                <div class="profile-large">
+
+                    <div class="large-avatar" id="adminAvatarProfile">
+                        RK
+                    </div>
+
+                    <div>
+
+                        <h2 id="adminNameProfile">Ravi Kapoor</h2>
+
+                        <p>HR Operations Admin</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="information-grid">
+
+                    <div class="information-item">
+                        <span>Admin ID</span>
+                        <strong id="profileAdminId">ADM001</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Full Name</span>
+                        <strong id="adminNameField">Ravi Kapoor</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Email</span>
+                        <strong id="adminEmailField">ravi@company.com</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Department</span>
+                        <strong id="adminDeptField">Human Resources</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Phone</span>
+                        <strong id="adminPhoneField">+91 90000 11223</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Access Level</span>
+                        <strong id="adminAccessField">Super Admin</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Date Joined</span>
+                        <strong>02 January 2020</strong>
+                    </div>
+
+                    <div class="information-item">
+                        <span>Last Login</span>
+                        <strong>Today</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EMPLOYEES
+        ================================================== -->
+
+        <section id="admin-section-employees" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Employees</h2>
+
+                    <p>
+                        Manage all employees in the organization.
+                    </p>
+
+                </div>
+
+                <button class="join-button" id="addEmployeeButton">
+                    + Add Employee
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    <h3>Mark Today's Attendance</h3>
+                    <p class="card-subtitle" id="attendanceMarkDateLabel">22 August 2026</p>
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Role</th>
+                                <th>Today's Attendance</th>
+                                <th>Mark</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="employeesTableBody">
+
+                            <tr data-emp-id="EMP001">
+
+                                <td>EMP001</td>
+
+                                <td>Priya Menon</td>
+
+                                <td>Product Design</td>
+
+                                <td>Senior Product Designer</td>
+
+                                <td>
+                                    <span class="badge unmarked attendance-badge">
+                                        Not Marked
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <div class="attendance-actions">
+                                        <button class="attendance-btn present" data-status="Present" title="Mark Present">P</button>
+                                        <button class="attendance-btn absent" data-status="Absent" title="Mark Absent">A</button>
+                                        <button class="attendance-btn leave" data-status="Leave" title="Mark Leave">L</button>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-emp-id="EMP002">
+
+                                <td>EMP002</td>
+
+                                <td>David Miller</td>
+
+                                <td>Engineering</td>
+
+                                <td>Backend Developer</td>
+
+                                <td>
+                                    <span class="badge unmarked attendance-badge">
+                                        Not Marked
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <div class="attendance-actions">
+                                        <button class="attendance-btn present" data-status="Present" title="Mark Present">P</button>
+                                        <button class="attendance-btn absent" data-status="Absent" title="Mark Absent">A</button>
+                                        <button class="attendance-btn leave" data-status="Leave" title="Mark Leave">L</button>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-emp-id="EMP003">
+
+                                <td>EMP003</td>
+
+                                <td>Sarah Williams</td>
+
+                                <td>Engineering</td>
+
+                                <td>Frontend Developer</td>
+
+                                <td>
+                                    <span class="badge unmarked attendance-badge">
+                                        Not Marked
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <div class="attendance-actions">
+                                        <button class="attendance-btn present" data-status="Present" title="Mark Present">P</button>
+                                        <button class="attendance-btn absent" data-status="Absent" title="Mark Absent">A</button>
+                                        <button class="attendance-btn leave" data-status="Leave" title="Mark Leave">L</button>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    <h3>All Employees</h3>
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="employeesListTableBody">
+
+                            <tr data-emp-id="EMP001">
+
+                                <td>EMP001</td>
+
+                                <td>Priya Menon</td>
+
+                                <td>Product Design</td>
+
+                                <td>Senior Product Designer</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Active
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="view-button">
+                                        View
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-emp-id="EMP002">
+
+                                <td>EMP002</td>
+
+                                <td>David Miller</td>
+
+                                <td>Engineering</td>
+
+                                <td>Backend Developer</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Active
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="view-button">
+                                        View
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr data-emp-id="EMP003">
+
+                                <td>EMP003</td>
+
+                                <td>Sarah Williams</td>
+
+                                <td>Engineering</td>
+
+                                <td>Frontend Developer</td>
+
+                                <td>
+                                    <span class="badge progress">
+                                        On Leave
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="view-button">
+                                        View
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INTERVIEWERS
+        ================================================== -->
+
+        <section id="admin-section-interviewers" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Interviewers</h2>
+
+                    <p>
+                        Manage interviewers and their assigned load.
+                    </p>
+
+                </div>
+
+                <button class="join-button" id="addInterviewerButton">
+                    + Add Interviewer
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Interviewer ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Active Interviews</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="interviewersTableBody">
+
+                            <tr>
+
+                                <td>INT001</td>
+
+                                <td>John Smith</td>
+
+                                <td>Technical</td>
+
+                                <td>3</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Active
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>INT002</td>
+
+                                <td>Meera Nair</td>
+
+                                <td>HR</td>
+
+                                <td>2</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Active
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>INT003</td>
+
+                                <td>Arjun Sethi</td>
+
+                                <td>Technical</td>
+
+                                <td>0</td>
+
+                                <td>
+                                    <span class="badge progress">
+                                        Unavailable
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INTERVIEWS (ALL)
+        ================================================== -->
+
+        <section id="admin-section-interviews" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Interviews</h2>
+
+                    <p>
+                        All interviews scheduled across the organization.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Interviewer</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>Alex Johnson</td>
+
+                                <td>John Smith</td>
+
+                                <td>Technical Interview</td>
+
+                                <td>25 Aug 2026</td>
+
+                                <td>
+                                    <span class="badge progress">
+                                        In Progress
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Sarah Williams</td>
+
+                                <td>John Smith</td>
+
+                                <td>Technical Interview</td>
+
+                                <td>26 Aug 2026</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Upcoming
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>David Miller</td>
+
+                                <td>Meera Nair</td>
+
+                                <td>HR Interview</td>
+
+                                <td>27 Aug 2026</td>
+
+                                <td>
+                                    <span class="badge upcoming">
+                                        Upcoming
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             REPORTS
+        ================================================== -->
+
+        <section id="admin-section-reports" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Reports</h2>
+
+                    <p>
+                        Hiring and workforce summaries.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <div class="card">
+
+                    <div class="card-title">
+                        <h3>Hiring Summary</h3>
+                    </div>
+
+                    <div class="profile-details">
+
+                        <div>
+                            <span>Applications This Month</span>
+                            <strong>42</strong>
+                        </div>
+
+                        <div>
+                            <span>Interviews Conducted</span>
+                            <strong>21</strong>
+                        </div>
+
+                        <div>
+                            <span>Offers Extended</span>
+                            <strong>5</strong>
+                        </div>
+
+                        <div>
+                            <span>Offers Accepted</span>
+                            <strong>3</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        <h3>Workforce Summary</h3>
+                    </div>
+
+                    <div class="profile-details">
+
+                        <div>
+                            <span>Total Headcount</span>
+                            <strong>128</strong>
+                        </div>
+
+                        <div>
+                            <span>On Leave Today</span>
+                            <strong>4</strong>
+                        </div>
+
+                        <div>
+                            <span>Pending Leave Requests</span>
+                            <strong>7</strong>
+                        </div>
+
+                        <div>
+                            <span>Attrition This Quarter</span>
+                            <strong>2</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SETTINGS
+        ================================================== -->
+
+        <section id="admin-section-settings" class="content-section">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2>Settings</h2>
+
+                    <p>
+                        Organization-wide access settings.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card feedback-card">
+
+                <h3>General Settings</h3>
+
+                <form id="adminSettingsForm">
+
+                    <label>Organization Name</label>
+
+                    <input type="text" id="orgName" value="Data Flow Technologies">
+
+                    <label>Support Email</label>
+
+                    <input type="text" id="supportEmail" value="support@company.com">
+
+                    <label>Default Interview Duration (minutes)</label>
+
+                    <input type="text" id="interviewDuration" value="45">
+
+                    <button type="submit" class="submit-feedback">
+                        Save Settings
+                    </button>
+
+                    <p id="adminSettingsStatus" class="login-status"></p>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     INTERVIEW GUIDE MODAL
+===================================================== -->
+
+<div id="guideModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal" id="closeGuide">
+            ×
+        </button>
+
+        <h2>Interview Guide</h2>
+
+        <h3>Technical Interview</h3>
+
+        <ul>
+
+            <li>Introduce yourself and the interview process.</li>
+
+            <li>Explain the technical problem clearly.</li>
+
+            <li>Allow the candidate enough time to think.</li>
+
+            <li>Evaluate technical knowledge and problem-solving.</li>
+
+            <li>Record your feedback after the interview.</li>
+
+        </ul>
+
+        <button class="guide-button">
+            Got It
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INTERVIEWER EDIT PROFILE MODAL
+===================================================== -->
+
+<div id="interviewerEditModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal" id="closeInterviewerEdit">
+            ×
+        </button>
+
+        <h2>Edit Profile</h2>
+
+        <form id="interviewerEditForm">
+
+            <label>Full Name</label>
+
+            <input type="text" id="interviewerEditName">
+
+            <label>Email</label>
+
+            <input type="text" id="interviewerEditEmail">
+
+            <label>Department</label>
+
+            <input type="text" id="interviewerEditDept">
+
+            <label>Phone</label>
+
+            <input type="text" id="interviewerEditPhone">
+
+            <label>Experience</label>
+
+            <input type="text" id="interviewerEditExperience">
+
+            <div class="modal-actions">
+
+                <button type="submit" class="submit-feedback">
+                    Save Changes
+                </button>
+
+            </div>
+
+            <p id="interviewerEditStatus" class="login-status"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     EMPLOYEE EDIT PROFILE MODAL
+===================================================== -->
+
+<div id="employeeEditModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal" id="closeEmployeeEdit">
+            ×
+        </button>
+
+        <h2>Edit Profile</h2>
+
+        <form id="employeeEditForm">
+
+            <label>Full Name</label>
+
+            <input type="text" id="employeeEditName">
+
+            <label>Email</label>
+
+            <input type="text" id="employeeEditEmail">
+
+            <label>Department</label>
+
+            <input type="text" id="employeeEditDept">
+
+            <label>Phone</label>
+
+            <input type="text" id="employeeEditPhone">
+
+            <label>Employment Type</label>
+
+            <select id="employeeEditType">
+
+                <option>Full-Time</option>
+                <option>Part-Time</option>
+                <option>Contract</option>
+                <option>Intern</option>
+
+            </select>
+
+            <div class="modal-actions">
+
+                <button type="submit" class="submit-feedback">
+                    Save Changes
+                </button>
+
+            </div>
+
+            <p id="employeeEditStatus" class="login-status"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ADMIN EDIT PROFILE MODAL
+===================================================== -->
+
+<div id="adminEditModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal" id="closeAdminEdit">
+            ×
+        </button>
+
+        <h2>Edit Profile</h2>
+
+        <form id="adminEditForm">
+
+            <label>Full Name</label>
+
+            <input type="text" id="adminEditName">
+
+            <label>Email</label>
+
+            <input type="text" id="adminEditEmail">
+
+            <label>Department</label>
+
+            <input type="text" id="adminEditDept">
+
+            <label>Phone</label>
+
+            <input type="text" id="adminEditPhone">
+
+            <label>Access Level</label>
+
+            <select id="adminEditAccess">
+
+                <option>Super Admin</option>
+                <option>Admin</option>
+                <option>Read-Only</option>
+
+            </select>
+
+            <div class="modal-actions">
+
+                <button type="submit" class="submit-feedback">
+                    Save Changes
+                </button>
+
+            </div>
+
+            <p id="adminEditStatus" class="login-status"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ADD EMPLOYEE MODAL
+===================================================== -->
+
+<div id="addEmployeeModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal" id="closeAddEmployee">
+            ×
+        </button>
+
+        <h2>Add Employee</h2>
+
+        <form id="addEmployeeForm">
+
+            <label>Employee ID</label>
+
+            <input type="text" id="newEmployeeId" placeholder="e.g. EMP004">
+
+            <label>Full Name</label>
+
+            <input type="text" id="newEmployeeName" placeholder="Enter full name">
+
+            <label>Department</label>
+
+            <input type="text" id="newEmployeeDept" placeholder="Enter department">
+
+            <label>Role</label>
+
+            <input type="text" id="newEmployeeRole" placeholder="Enter job role">
+
+            <label>Status</label>
+
+            <select id="newEmployeeStatus">
+
+                <option>Active</option>
+                <option>On Leave</option>
+
+            </select>
+
+            <div class="modal-actions">
+
+                <button type="submit" class="submit-feedback">
+                    Add Employee
+                </button>
+
+            </div>
+
+            <p id="addEmployeeStatus" class="login-status"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     VIEW EMPLOYEE MODAL
+===================================================== -->
+
+<div id="viewEmployeeModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal" id="closeViewEmployee">
+            ×
+        </button>
+
+        <div class="profile-large">
+
+            <div class="large-avatar" id="viewEmployeeAvatar">
+                PM
+            </div>
+
+            <div>
+
+                <h2 id="viewEmployeeName">Priya Menon</h2>
+
+                <p id="viewEmployeeRole">Senior Product Designer</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="information-grid view-employee-grid">
+
+            <div class="information-item">
+                <span>Employee ID</span>
+                <strong id="viewEmployeeId">EMP001</strong>
+            </div>
+
+            <div class="information-item">
+                <span>Department</span>
+                <strong id="viewEmployeeDept">Product Design</strong>
+            </div>
+
+            <div class="information-item">
+                <span>Status</span>
+                <strong id="viewEmployeeStatus">Active</strong>
+            </div>
+
+            <div class="information-item">
+                <span>Days Present (This Month)</span>
+                <strong id="viewEmployeePresent">18</strong>
+            </div>
+
+            <div class="information-item">
+                <span>Today's Attendance</span>
+                <strong id="viewEmployeeToday">Not Marked</strong>
+            </div>
+
+        </div>
+
+
+        <h3 class="view-employee-chart-title">Attendance Breakdown</h3>
+
+        <div class="chart-container view-employee-chart">
+
+            <canvas id="viewEmployeeChart"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ADD INTERVIEWER MODAL
+===================================================== -->
+
+<div id="addInterviewerModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal" id="closeAddInterviewer">
+            ×
+        </button>
+
+        <h2>Add Interviewer</h2>
+
+        <form id="addInterviewerForm">
+
+            <label>Interviewer ID</label>
+
+            <input type="text" id="newInterviewerId" placeholder="e.g. INT004">
+
+            <label>Full Name</label>
+
+            <input type="text" id="newInterviewerName" placeholder="Enter full name">
+
+            <label>Department</label>
+
+            <input type="text" id="newInterviewerDept" placeholder="Enter department">
+
+            <label>Status</label>
+
+            <select id="newInterviewerStatus">
+
+                <option>Active</option>
+                <option>Unavailable</option>
+
+            </select>
+
+            <div class="modal-actions">
+
+                <button type="submit" class="submit-feedback">
+                    Add Interviewer
+                </button>
+
+            </div>
+
+            <p id="addInterviewerStatus" class="login-status"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
